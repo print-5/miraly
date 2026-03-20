@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import connectDB from "@/lib/mongodb";
 import Order from "@/models/Order";
+import Product from "@/models/Product";
 import InvoiceClient from "./InvoiceClient";
 
 export const metadata = {
