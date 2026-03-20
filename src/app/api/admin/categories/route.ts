@@ -50,7 +50,7 @@ export async function POST(req: Request) {
         const base64Image = `data:${file.type};base64,${buffer.toString("base64")}`;
         const result = await uploadToCloudinary(
           base64Image,
-          "sainandhini/categories",
+          "miraly/categories",
         );
         imageUrl = result.secure_url;
       } else if (existingImage) {
@@ -130,7 +130,7 @@ export async function PUT(req: Request) {
         const base64Image = `data:${file.type};base64,${buffer.toString("base64")}`;
         const result = await uploadToCloudinary(
           base64Image,
-          "sainandhini/categories",
+          "miraly/categories",
         );
         imageUrl = result.secure_url;
       } else if (existingImage) {
