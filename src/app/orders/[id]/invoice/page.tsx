@@ -6,7 +6,7 @@ import Order from "@/models/Order";
 import InvoiceClient from "./InvoiceClient";
 
 export const metadata = {
-  title: "Invoice | Sai Nandhini",
+  title: "Invoice | Miraly Foods",
 };
 
 export default async function InvoicePage(props: {

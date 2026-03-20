@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import OrderDetailsClient from "./OrderDetailsClient";
 
 export const metadata = {
-  title: "Order Details | Sai Nandhini",
+  title: "Order Details | Miraly Foods",
 };
 
 export default async function OrderDetailsPage({
