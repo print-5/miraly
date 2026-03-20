@@ -80,8 +80,8 @@ const CouponSchema = new Schema(
   },
 );
 
-// Index for faster lookups by code
-CouponSchema.index({ code: 1 });
+// Remove the duplicate index since unique: true already creates an index
+// CouponSchema.index({ code: 1 });
 
 const Coupon = models.Coupon || model("Coupon", CouponSchema);
 

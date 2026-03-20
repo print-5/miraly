@@ -12,6 +12,9 @@ export const metadata = {
   description: "Secure checkout for your authentic homemade sweets.",
 };
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default async function CheckoutPage() {
   const [settings, shippingRates, coupons] = await Promise.all([
     getSettingsData(),
