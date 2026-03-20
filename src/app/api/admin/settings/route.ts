@@ -15,7 +15,7 @@ export async function GET() {
     const settings = await Settings.findOne();
 
     if (settings) {
-      const masked = settings.toObject();
+      const masked = settings.toObject() as any;
 
       // Migration: Convert old taxRate to taxRates array
       if (
@@ -171,24 +171,25 @@ export async function POST(req: Request) {
 
     // Ensure payment object exists and merge with existing
     if (existing) {
+      const existingObj = existing.toObject() as any;
       data.payment = {
-        ...existing.payment?.toObject?.() || existing.payment || {},
+        ...existingObj.payment || {},
         ...data.payment || {},
       };
       data.smtp = {
-        ...existing.smtp?.toObject?.() || existing.smtp || {},
+        ...existingObj.smtp || {},
         ...data.smtp || {},
       };
       data.seo = {
-        ...existing.seo?.toObject?.() || existing.seo || {},
+        ...existingObj.seo || {},
         ...data.seo || {},
       };
       data.socialMedia = {
-        ...existing.socialMedia?.toObject?.() || existing.socialMedia || {},
+        ...existingObj.socialMedia || {},
         ...data.socialMedia || {},
       };
       data.googleMyBusiness = {
-        ...existing.googleMyBusiness?.toObject?.() || existing.googleMyBusiness || {},
+        ...existingObj.googleMyBusiness || {},
         ...data.googleMyBusiness || {},
       };
     }

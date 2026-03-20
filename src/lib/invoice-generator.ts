@@ -5,7 +5,7 @@ import Settings from "@/models/Settings";
  */
 export const generateInvoiceHTML = async (order: any) => {
   // Fetch company settings
-  let settings = await Settings.findOne();
+  let settings: any = await Settings.findOne();
 
   const defaultTaxRate = (() => {
     if (settings?.taxRates && settings.taxRates.length > 0) {
@@ -13,7 +13,7 @@ export const generateInvoiceHTML = async (order: any) => {
         settings.taxRates.find((t: any) => t.isDefault) || settings.taxRates[0];
       return defaultTax.rate;
     }
-    return settings?.taxRate || 5;
+    return (settings as any)?.taxRate || 5;
   })();
 
   if (!settings) {
@@ -23,7 +23,7 @@ export const generateInvoiceHTML = async (order: any) => {
       contactPhone: "+91 96009 16065",
       address:
         "# 3/81, 1st Floor, Kaveri Main Street, SRV Nagar, Thirunagar, Madurai - 625006",
-    };
+    } as any;
   }
 
   const invoiceHTML = `

@@ -420,7 +420,7 @@ export async function getSettingsData() {
   const settings = await Settings.findOne();
   if (!settings) return {};
 
-  const masked = settings.toObject();
+  const masked = settings.toObject() as any;
 
   // Migration: Convert old taxRate to taxRates array
   if (

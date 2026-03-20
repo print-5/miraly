@@ -91,7 +91,7 @@ export const sendOrderConfirmationEmail = async (
     const companyName = settings?.shopName || "Miraly Foods";
     const companyEmail = settings?.contactEmail || emailConfig.auth.user;
 
-    const { html, subject } = getEmailTemplate(order, settings);
+    const { html, subject } = getEmailTemplate(order, settings || undefined);
 
     // Send email with invoice attachment
     const mailOptions = {
@@ -152,7 +152,7 @@ export const sendStatusUpdateEmail = async (order: any) => {
         "Your order has been delivered successfully. Thank you for shopping with us!";
     }
 
-    const { html, subject } = getEmailTemplate(order, settings, {
+    const { html, subject } = getEmailTemplate(order, settings || undefined, {
       statusMessage,
     });
 
