@@ -130,7 +130,7 @@ function buildStatusConfig(
     btnBg: "#f8bf51",
     btnColor: "#991b1b",
     note: "Please allow 24 hours to see tracking information.",
-    cardTitle: "ðŸ“‹ Order Summary",
+    cardTitle: "Order Summary",
     cardTitleColor: "#9c8141",
     cardBg: "#FAF3E0",
     cardBorder: "#f8bf5130",
@@ -156,7 +156,7 @@ function buildStatusConfig(
         desc:
           statusMessage ??
           "Your order is being prepared and will be dispatched very soon.",
-        cardTitle: "âš™ï¸ Order in Progress",
+        cardTitle: "Order in Progress",
         cardBody:
           "Our team is picking and packing your items. You'll hear from us the moment it ships.",
         progressWidth: "10%",
@@ -171,7 +171,7 @@ function buildStatusConfig(
       return {
         ...base,
         badgeLabel: "Dispatched",
-        title: "Your order is on its way! ðŸšš",
+        title: "Your order is on its way!",
         desc:
           statusMessage ??
           "Great news â€” your order has just left our warehouse. Your snacks are heading to you right now.",
@@ -179,7 +179,7 @@ function buildStatusConfig(
         note: order.awbNumber
           ? `Tracking #: ${esc(order.awbNumber)}`
           : "Carrier tracking details will appear in the app.",
-        cardTitle: "ðŸ“ Tracking Information",
+        cardTitle: "Tracking Information",
         cardBody: order.awbNumber
           ? `<strong>Tracking number:</strong> ${esc(order.awbNumber)}<br/>Use this number on the carrier's website for real-time updates.`
           : "Tracking details will be updated shortly. Check the app for live status.",
@@ -200,7 +200,7 @@ function buildStatusConfig(
         badgeStyle:
           "background:rgba(160,112,80,0.15);color:#f8bf51;border:1px solid rgba(160,112,80,0.3);",
         badgeColor: "#f8bf51",
-        title: "Almost there â€” delivery today! ðŸ“¦",
+        title: "Almost there - delivery today!",
         desc:
           statusMessage ??
           "Your order is with the delivery driver and will arrive today. Make sure someone is available!",
@@ -208,7 +208,7 @@ function buildStatusConfig(
         btnBg: "#f8bf51",
         btnColor: "#fff",
         note: "Expected delivery window: Today, 2 PM â€“ 6 PM",
-        cardTitle: "â° Delivery Window",
+        cardTitle: "Delivery Window",
         cardTitleColor: "#991b1b",
         cardBg: "#FAF3E0",
         cardBorder: "#f8bf5130",
@@ -230,11 +230,11 @@ function buildStatusConfig(
       return {
         ...base,
         hdrBg: "#991b1b",
-        badgeLabel: "Delivered âœ“",
+        badgeLabel: "Delivered",
         badgeStyle:
           "background:rgba(153,27,27,0.15);color:#991b1b;border:1px solid rgba(153,27,27,0.3);",
         badgeColor: "#991b1b",
-        title: "Your snacks have arrived! ðŸŽ‰",
+        title: "Your snacks have arrived!",
         desc:
           statusMessage ??
           `Your order was delivered on ${formattedDate}. We hope you enjoy every bite!`,
@@ -242,7 +242,7 @@ function buildStatusConfig(
         btnBg: "#991b1b",
         btnColor: "#fff",
         note: `Delivered on ${formattedDate}`,
-        cardTitle: "âœ… Delivery Confirmed",
+        cardTitle: "Delivery Confirmed",
         cardTitleColor: "#991b1b",
         cardBg: "#FAF3E0",
         cardBorder: "#991b1b30",
@@ -252,7 +252,7 @@ function buildStatusConfig(
         progressColor: "#991b1b",
         showProgress: true,
         preheader: `Your order has arrived! Leave a review and get 10% off your next order.`,
-        emailSubject: "Your Miraly Foods order has been delivered! ðŸŽ‰",
+        emailSubject: "Your Miraly Foods order has been delivered!",
         step1State: "done",
         step2State: "done",
         step3State: "done",
@@ -275,7 +275,7 @@ function buildStatusConfig(
         btnBg: "#f8bf51",
         btnColor: "#991b1b",
         note: "Refund will appear within 3â€“5 business days",
-        cardTitle: "â„¹ï¸ Cancellation Details",
+        cardTitle: "Cancellation Details",
         cardTitleColor: "#b03030",
         cardBg: "#fff5f5",
         cardBorder: "#e0525230",
@@ -414,7 +414,7 @@ function buildProgressBar(cfg: StatusConfig): string {
       const bgColor = isDone ? cfg.progressColor : "rgba(255,255,255,0.1)";
       const labelColor = isDone || isActive ? cfg.progressColor : "rgba(255,255,255,0.6)";
       const fontWeight = isDone || isActive ? "700" : "normal";
-      const iconChar = isDone ? "âœ“" : icon;
+      const iconChar = isDone ? "✓" : icon;
       const iconColor = isDone
         ? "#fff"
         : isActive
