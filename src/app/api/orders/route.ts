@@ -29,6 +29,7 @@ export async function POST(req: Request) {
       couponCode,
       discount,
       customerId,
+      codCharges,
     } = await req.json();
 
     if (!orderItems || orderItems.length === 0) {
@@ -125,7 +126,7 @@ export async function POST(req: Request) {
       paymentMethod,
       itemsPrice,
       taxPrice,
-      shippingPrice,
+      shippingPrice: (shippingPrice || 0) + (codCharges || 0), // Include COD charges in shipping price for now
       discountPrice,
       couponCode: couponCode || null,
       discount: discount || 0,

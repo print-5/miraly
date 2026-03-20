@@ -119,7 +119,7 @@ export default function AdminLayout({
           },
           success: {
             iconTheme: {
-              primary: "#16a34a",
+              primary: "#991b1b",
               secondary: "#fff",
             },
           },

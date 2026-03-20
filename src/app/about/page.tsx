@@ -320,6 +320,258 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Farm to Table Section */}
+      <section className="py-20 md:py-32 bg-gradient-to-br from-amber-50 via-green-50 to-emerald-50 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-green-400/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 bg-green-100 border border-green-200 rounded-full px-6 py-2.5 mb-6">
+              <Leaf size={16} className="text-green-700" />
+              <span className="text-sm font-bold uppercase tracking-[0.15em] text-green-800">
+                From Farm to Your Kitchen
+              </span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-black text-gray-900 mb-6">
+              Rooted in <span className="text-green-600 italic">Sustainable Agriculture</span>
+            </h2>
+
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Every spice tells a story of the soil, the farmer, and the journey from field to flavor
+            </p>
+          </motion.div>
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+            {/* Left: Image Collage */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              <div className="relative">
+                {/* Main large image */}
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="https://images.pexels.com/photos/2252618/pexels-photo-2252618.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    alt="Spice Farming"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-white font-bold text-lg drop-shadow-lg">
+                      Organic Spice Cultivation
+                    </p>
+                  </div>
+                </div>
+
+                {/* Floating cards */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="absolute -bottom-6 -right-6 w-48 h-48 rounded-2xl overflow-hidden shadow-xl border-4 border-white"
+                >
+                  <Image
+                    src="https://images.pexels.com/photos/4750274/pexels-photo-4750274.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    alt="Fresh Harvest"
+                    fill
+                    className="object-cover"
+                    sizes="200px"
+                  />
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="absolute -top-6 -left-6 w-40 h-40 rounded-2xl overflow-hidden shadow-xl border-4 border-white"
+                >
+                  <Image
+                    src="https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    alt="Spice Plants"
+                    fill
+                    className="object-cover"
+                    sizes="160px"
+                  />
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Right: Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
+                Partnering with <span className="text-green-600">Local Farmers</span> for Premium Quality
+              </h3>
+
+              <p className="text-gray-600 leading-relaxed text-lg">
+                Our spices begin their journey in the fertile fields of India, where generations of farmers 
+                have perfected the art of cultivation. We work directly with over 500 farming families across 
+                Kerala, Karnataka, and Tamil Nadu, ensuring fair prices and sustainable farming practices.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white rounded-xl p-5 shadow-md border border-green-100">
+                  <div className="text-3xl font-black text-green-600 mb-2">500+</div>
+                  <div className="text-sm font-semibold text-gray-700">Partner Farms</div>
+                </div>
+                <div className="bg-white rounded-xl p-5 shadow-md border border-green-100">
+                  <div className="text-3xl font-black text-green-600 mb-2">100%</div>
+                  <div className="text-sm font-semibold text-gray-700">Organic Certified</div>
+                </div>
+                <div className="bg-white rounded-xl p-5 shadow-md border border-green-100">
+                  <div className="text-3xl font-black text-green-600 mb-2">0</div>
+                  <div className="text-sm font-semibold text-gray-700">Chemical Pesticides</div>
+                </div>
+                <div className="bg-white rounded-xl p-5 shadow-md border border-green-100">
+                  <div className="text-3xl font-black text-green-600 mb-2">24hrs</div>
+                  <div className="text-sm font-semibold text-gray-700">Farm to Processing</div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
+                    <Leaf className="text-white" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 mb-2">Sustainable Farming Commitment</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      We support regenerative agriculture practices that enrich the soil, conserve water, 
+                      and promote biodiversity. Our farmers use traditional composting methods and natural 
+                      pest control to grow the healthiest spices.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Journey Timeline */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100"
+          >
+            <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12">
+              The Journey of Our <span className="text-amber-600">Spices</span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {[
+                {
+                  step: "01",
+                  title: "Cultivation",
+                  desc: "Organic farming in nutrient-rich soil with natural irrigation",
+                  image: "https://images.pexels.com/photos/1459339/pexels-photo-1459339.jpeg?auto=compress&cs=tinysrgb&w=400",
+                  color: "from-green-500 to-emerald-500"
+                },
+                {
+                  step: "02",
+                  title: "Harvesting",
+                  desc: "Hand-picked at peak ripeness for maximum flavor and aroma",
+                  image: "https://images.pexels.com/photos/4750274/pexels-photo-4750274.jpeg?auto=compress&cs=tinysrgb&w=400",
+                  color: "from-amber-500 to-orange-500"
+                },
+                {
+                  step: "03",
+                  title: "Processing",
+                  desc: "Traditional sun-drying and stone-grinding methods preserved",
+                  image: "/processing.png",
+                  color: "from-red-500 to-rose-500"
+                },
+                {
+                  step: "04",
+                  title: "Packaging",
+                  desc: "Vacuum-sealed to lock in freshness and delivered to you",
+                  image: "/packaging.png",
+                  color: "from-purple-500 to-pink-500"
+                }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="relative group"
+                >
+                  {/* Connector line */}
+                  {i < 3 && (
+                    <div className="hidden md:block absolute top-20 left-full w-full h-0.5 bg-gradient-to-r from-gray-300 to-gray-200 -z-10" />
+                  )}
+
+                  <div className="relative">
+                    {/* Step number */}
+                    <div className={`absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center text-white font-black text-sm shadow-lg z-10`}>
+                      {item.step}
+                    </div>
+
+                    {/* Image */}
+                    <div className="relative aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                    </div>
+
+                    {/* Content */}
+                    <h4 className="font-bold text-lg text-gray-900 mb-2">{item.title}</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <div className="inline-flex flex-col items-center gap-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+              <Leaf size={48} className="opacity-80" />
+              <h3 className="text-2xl md:text-3xl font-bold max-w-2xl">
+                Every Purchase Supports Sustainable Farming Communities
+              </h3>
+              <p className="text-green-50 max-w-xl text-sm md:text-base">
+                When you choose our spices, you're not just getting premium quality – you're supporting 
+                fair trade practices and helping farming families thrive.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Values Section */}
       <section className="py-20 md:py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">

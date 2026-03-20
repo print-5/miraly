@@ -77,6 +77,11 @@ export default function CheckoutClient({
   }, [session, status]);
 
   const itemsPrice = cartTotal;
+  
+  // COD settings from initialSettings
+  const codEnabled = initialSettings?.payment?.codEnabled || false;
+  const codCharges = initialSettings?.payment?.codCharges || 0;
+  const codMinOrderValue = initialSettings?.payment?.codMinOrderValue || 0;
 
   // Get estimated delivery time for selected location
   const getEstimatedDelivery = () => {
@@ -132,9 +137,12 @@ export default function CheckoutClient({
   // Check if shipping is available for selected location
   const isShippingAvailable = shippingPrice !== null;
 
+  // Calculate COD charges if COD is selected
+  const codFee = paymentMethod === "cod" ? codCharges : 0;
+
   const totalPrice = Math.max(
     0,
-    itemsPrice + (shippingPrice || 0) - discountAmount,
+    itemsPrice + (shippingPrice || 0) + codFee - discountAmount,
   );
 
   const applyCouponCode = async (code: string) => {
@@ -191,6 +199,12 @@ export default function CheckoutClient({
       return;
     }
 
+    // Check COD minimum order value
+    if (paymentMethod === "cod" && codMinOrderValue > 0 && itemsPrice < codMinOrderValue) {
+      toast.error(`Minimum order value for COD is ₹${codMinOrderValue}`);
+      return;
+    }
+
     setLoading(true);
     try {
       // 1. Create Order in Database
@@ -215,7 +229,7 @@ export default function CheckoutClient({
             pincode: address.pincode,
             state: address.state,
           },
-          paymentMethod: "Razorpay",
+          paymentMethod: paymentMethod === "cod" ? "Cash on Delivery" : "Razorpay",
           itemsPrice,
           taxPrice: 0,
           shippingPrice,
@@ -223,11 +237,19 @@ export default function CheckoutClient({
           totalPrice,
           couponCode: appliedCoupon?.code || null,
           discount: discountAmount,
+          codCharges: codFee,
         }),
       });
       const dbOrder = await orderRes.json();
       if (!orderRes.ok)
         throw new Error(dbOrder.error || "Order creation failed");
+
+      // If COD, redirect to success page immediately
+      if (paymentMethod === "cod") {
+        clearCart();
+        window.location.href = "/orders/success";
+        return;
+      }
 
       // Create Razorpay order
       const payRes = await fetch("/api/payments/razorpay", {
@@ -676,7 +698,80 @@ export default function CheckoutClient({
                   />
                 </label>
 
+                {/* Cash on Delivery Option */}
+                {codEnabled && (
+                  <label
+                    className={`group flex items-start gap-4 p-6 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === "cod"
+                        ? "border-primary bg-primary/5 shadow-md ring-2 ring-primary/20"
+                        : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
+                      } ${codMinOrderValue > 0 && itemsPrice < codMinOrderValue ? "opacity-50 cursor-not-allowed" : ""}`}
+                    onClick={(e) => {
+                      if (codMinOrderValue > 0 && itemsPrice < codMinOrderValue) {
+                        e.preventDefault();
+                        toast.error(`Minimum order value for COD is ₹${codMinOrderValue}`);
+                      }
+                    }}
+                  >
+                    <div className="flex items-center h-6">
+                      <div
+                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${paymentMethod === "cod"
+                            ? "border-primary bg-primary"
+                            : "border-gray-300 group-hover:border-gray-400"
+                          }`}
+                      >
+                        {paymentMethod === "cod" && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="w-3 h-3 rounded-full bg-white"
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex-grow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <IndianRupee className="h-5 w-5 text-primary" />
+                        <p className="font-bold text-primary-dark text-lg">
+                          Cash on Delivery
+                        </p>
+                        {codCharges > 0 && (
+                          <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full">
+                            +₹{codCharges} charges
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-600 mb-2">
+                        Pay with cash when your order is delivered
+                      </p>
+                      {codMinOrderValue > 0 && (
+                        <p className="text-xs text-gray-500">
+                          {itemsPrice < codMinOrderValue ? (
+                            <span className="text-red-600 font-semibold">
+                              Minimum order value: ₹{codMinOrderValue} (Current: ₹{itemsPrice})
+                            </span>
+                          ) : (
+                            <span className="text-red-600">
+                              ✓ Minimum order value met
+                            </span>
+                          )}
+                        </p>
+                      )}
+                    </div>
 
+                    <input
+                      type="radio"
+                      name="payment"
+                      className="hidden"
+                      checked={paymentMethod === "cod"}
+                      onChange={() => {
+                        if (!(codMinOrderValue > 0 && itemsPrice < codMinOrderValue)) {
+                          setPaymentMethod("cod");
+                        }
+                      }}
+                      disabled={codMinOrderValue > 0 && itemsPrice < codMinOrderValue}
+                    />
+                  </label>
+                )}
               </div>
             </motion.div>
 
@@ -819,6 +914,19 @@ export default function CheckoutClient({
                       </span>
                     )}
                   </div>
+
+                  {/* COD Charges */}
+                  {codFee > 0 && (
+                    <div className="flex justify-between text-sm items-center">
+                      <span className="text-gray-600 flex items-center gap-2">
+                        <IndianRupee size={16} className="text-gray-400" />
+                        COD Charges
+                      </span>
+                      <span className="font-semibold text-primary-dark">
+                        ₹{codFee}
+                      </span>
+                    </div>
+                  )}
 
                   {/* Show delivery estimate if available */}
                   {estimatedDelivery && shippingPrice !== null && (
@@ -1062,6 +1170,12 @@ export default function CheckoutClient({
                     <div className="flex justify-between text-xs">
                       <span className="text-gray-400">Shipping</span>
                       <span className="font-bold text-red-500">Not Available</span>
+                    </div>
+                  )}
+                  {codFee > 0 && (
+                    <div className="flex justify-between text-xs">
+                      <span className="text-gray-400">COD Charges</span>
+                      <span className="font-bold">₹{codFee.toLocaleString()}</span>
                     </div>
                   )}
                   {discountAmount > 0 && (

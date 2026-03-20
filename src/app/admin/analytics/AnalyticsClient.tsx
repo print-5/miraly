@@ -27,7 +27,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const COLORS = ["#dc2626", "#ea580c", "#f97316", "#16a34a", "#22c55e"];
+const COLORS = ["#dc2626", "#ea580c", "#f97316", "#991b1b", "#7f1d1d"];
 
 export default function AnalyticsClient({ initialData }: { initialData: any }) {
   const [data] = useState<any>(initialData);

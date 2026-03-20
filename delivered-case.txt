@@ -1,0 +1,32 @@
+﻿    case "Delivered":
+      return {
+        ...base,
+        hdrBg: "#991b1b",
+        badgeLabel: "Delivered",
+        badgeStyle:
+          "background:rgba(153,27,27,0.15);color:#991b1b;border:1px solid rgba(153,27,27,0.3);",
+        badgeColor: "#991b1b",
+        title: "Your snacks have arrived!",
+        desc:
+          statusMessage ??
+          `Your order was delivered on ${formattedDate}. We hope you enjoy every bite!`,
+        btnText: "View Order Details",
+        btnBg: "#991b1b",
+        btnColor: "#fff",
+        note: `Delivered on ${formattedDate}`,
+        cardTitle: "Delivery Confirmed",
+        cardTitleColor: "#991b1b",
+        cardBg: "#FAF3E0",
+        cardBorder: "#991b1b30",
+        cardBody:
+          "Your order was successfully delivered. If you have any concerns, please contact us within 48 hours.",
+        progressWidth: "100%",
+        progressColor: "#991b1b",
+        showProgress: true,
+        preheader: `Your order has arrived! Leave a review and get 10% off your next order.`,
+        emailSubject: "Your Miraly Foods order has been delivered!",
+        step1State: "done",
+        step2State: "done",
+        step3State: "done",
+        step4State: "done",
+      };

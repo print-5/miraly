@@ -94,7 +94,7 @@ interface DashboardData {
   }[];
 }
 
-const COLORS = ["#dc2626", "#ea580c", "#f59e0b", "#16a34a", "#0891b2"];
+const COLORS = ["#dc2626", "#ea580c", "#f59e0b", "#991b1b", "#0891b2"];
 
 const containerVariants = {
   hidden: { opacity: 0 },

@@ -396,7 +396,7 @@ export default function ProductsClient({
                         {
                           value: "in-stock",
                           label: "In Stock",
-                          color: "green",
+                          color: "red",
                         },
                         {
                           value: "low-stock",
@@ -421,7 +421,7 @@ export default function ProductsClient({
                           {status.value !== "all" && (
                             <div
                               className={`w-2 h-2 rounded-full ${
-                                status.color === "green"
+                                status.color === "red"
                                   ? "bg-red-500"
                                   : status.color === "orange"
                                     ? "bg-orange-500"

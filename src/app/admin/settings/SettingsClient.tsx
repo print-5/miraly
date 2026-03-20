@@ -25,6 +25,7 @@ import {
   Truck,
   Receipt,
   AlertCircle,
+  IndianRupee,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
@@ -624,6 +625,106 @@ export default function SettingsClient({
                       </div>
                     </div>
                   </div>
+                </div>
+
+                {/* Cash on Delivery Settings */}
+                <div className="border-t border-gray-100 pt-6">
+                  <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                        <IndianRupee size={16} className="text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-blue-900 mb-1">
+                          Cash on Delivery (COD)
+                        </p>
+                        <p className="text-xs text-blue-700">
+                          Allow customers to pay with cash when their order is delivered
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ToggleSwitch
+                    checked={settings.payment?.codEnabled || false}
+                    onChange={() =>
+                      setSettings({
+                        ...settings,
+                        payment: {
+                          ...settings.payment,
+                          codEnabled: !settings.payment?.codEnabled,
+                          codCharges: settings.payment?.codCharges ?? 0,
+                          codMinOrderValue: settings.payment?.codMinOrderValue ?? 0,
+                        },
+                      })
+                    }
+                    label="Enable Cash on Delivery"
+                    description="Allow customers to choose COD as a payment option at checkout"
+                  />
+
+                  {settings.payment?.codEnabled && (
+                    <div className="mt-6 space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <FieldLabel>COD Charges (₹)</FieldLabel>
+                          <div className="relative">
+                            <IndianRupee
+                              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                              size={16}
+                            />
+                            <input
+                              type="number"
+                              className={`${INPUT_CLASS} pl-12`}
+                              value={settings.payment?.codCharges || 0}
+                              onChange={(e) =>
+                                setSettings({
+                                  ...settings,
+                                  payment: {
+                                    ...settings.payment,
+                                    codCharges: Number(e.target.value),
+                                  },
+                                })
+                              }
+                              placeholder="0"
+                              min="0"
+                            />
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1.5">
+                            Additional charges for COD orders (set 0 for free)
+                          </p>
+                        </div>
+
+                        <div>
+                          <FieldLabel>Minimum Order Value for COD (₹)</FieldLabel>
+                          <div className="relative">
+                            <IndianRupee
+                              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                              size={16}
+                            />
+                            <input
+                              type="number"
+                              className={`${INPUT_CLASS} pl-12`}
+                              value={settings.payment?.codMinOrderValue || 0}
+                              onChange={(e) =>
+                                setSettings({
+                                  ...settings,
+                                  payment: {
+                                    ...settings.payment,
+                                    codMinOrderValue: Number(e.target.value),
+                                  },
+                                })
+                              }
+                              placeholder="0"
+                              min="0"
+                            />
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1.5">
+                            Minimum cart value required for COD (set 0 for no minimum)
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </SettingsCard>

@@ -169,9 +169,34 @@ export async function POST(req: Request) {
       }
     }
 
+    // Ensure payment object exists and merge with existing
+    if (existing) {
+      data.payment = {
+        ...existing.payment?.toObject?.() || existing.payment || {},
+        ...data.payment || {},
+      };
+      data.smtp = {
+        ...existing.smtp?.toObject?.() || existing.smtp || {},
+        ...data.smtp || {},
+      };
+      data.seo = {
+        ...existing.seo?.toObject?.() || existing.seo || {},
+        ...data.seo || {},
+      };
+      data.socialMedia = {
+        ...existing.socialMedia?.toObject?.() || existing.socialMedia || {},
+        ...data.socialMedia || {},
+      };
+      data.googleMyBusiness = {
+        ...existing.googleMyBusiness?.toObject?.() || existing.googleMyBusiness || {},
+        ...data.googleMyBusiness || {},
+      };
+    }
+
     const settings = await Settings.findOneAndUpdate({}, data, {
       returnDocument: "after",
       upsert: true,
+      new: true,
     });
 
     const response = settings.toObject();

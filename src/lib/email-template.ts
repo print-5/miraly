@@ -1,4 +1,4 @@
-﻿// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // emailTemplate.ts
 // Production-grade transactional email template for order notifications.
 //
@@ -195,7 +195,7 @@ function buildStatusConfig(
     case "OutForDelivery":
       return {
         ...base,
-        hdrBg: "#1A2318",
+        hdrBg: "#991b1b",
         badgeLabel: "Out for Delivery",
         badgeStyle:
           "background:rgba(160,112,80,0.15);color:#f8bf51;border:1px solid rgba(160,112,80,0.3);",
@@ -229,27 +229,27 @@ function buildStatusConfig(
     case "Delivered":
       return {
         ...base,
-        hdrBg: "#14331D",
+        hdrBg: "#991b1b",
         badgeLabel: "Delivered âœ“",
         badgeStyle:
-          "background:rgba(76,175,80,0.15);color:#4caf50;border:1px solid rgba(76,175,80,0.3);",
-        badgeColor: "#4caf50",
+          "background:rgba(153,27,27,0.15);color:#991b1b;border:1px solid rgba(153,27,27,0.3);",
+        badgeColor: "#991b1b",
         title: "Your snacks have arrived! ðŸŽ‰",
         desc:
           statusMessage ??
           `Your order was delivered on ${formattedDate}. We hope you enjoy every bite!`,
         btnText: "View Order Details",
-        btnBg: "#4caf50",
+        btnBg: "#991b1b",
         btnColor: "#fff",
         note: `Delivered on ${formattedDate}`,
         cardTitle: "âœ… Delivery Confirmed",
-        cardTitleColor: "#388e3c",
-        cardBg: "#f1f8f1",
-        cardBorder: "#4caf5030",
+        cardTitleColor: "#991b1b",
+        cardBg: "#FAF3E0",
+        cardBorder: "#991b1b30",
         cardBody:
           "Your order was successfully delivered. If you have any concerns, please contact us within 48 hours.",
         progressWidth: "100%",
-        progressColor: "#4caf50",
+        progressColor: "#991b1b",
         showProgress: true,
         preheader: `Your order has arrived! Leave a review and get 10% off your next order.`,
         emailSubject: "Your Miraly Foods order has been delivered! ðŸŽ‰",
@@ -411,15 +411,15 @@ function buildProgressBar(cfg: StatusConfig): string {
       const isDone = state === "done";
       const isActive = state === "active";
       const borderColor = isDone || isActive ? cfg.progressColor : "#991b1b";
-      const bgColor = isDone ? cfg.progressColor : "rgba(0,0,0,0.15)";
-      const labelColor = isDone || isActive ? cfg.progressColor : "#b0a99a";
+      const bgColor = isDone ? cfg.progressColor : "rgba(255,255,255,0.1)";
+      const labelColor = isDone || isActive ? cfg.progressColor : "rgba(255,255,255,0.6)";
       const fontWeight = isDone || isActive ? "700" : "normal";
       const iconChar = isDone ? "âœ“" : icon;
       const iconColor = isDone
         ? "#fff"
         : isActive
           ? cfg.progressColor
-          : "#6b6256";
+          : "rgba(255,255,255,0.5)";
 
       return `
       <td width="25%" style="text-align:center;position:relative;z-index:2;" valign="top">
@@ -438,7 +438,7 @@ function buildProgressBar(cfg: StatusConfig): string {
     .join("");
 
   return `
-    <div style="background:#1A2318;padding:20px 28px;" role="progressbar" aria-label="Order progress">
+    <div style="background:#991b1b;padding:20px 28px;" role="progressbar" aria-label="Order progress">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="position:relative;">
         <tr>
           <td colspan="4" style="padding:0;position:relative;height:0;">
@@ -481,7 +481,7 @@ function buildOrderMetaCard(
 
   return `
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-           style="background:#1A2318;border-radius:14px;overflow:hidden;margin-bottom:24px;">
+           style="background:#991b1b;border-radius:14px;overflow:hidden;margin-bottom:24px;">
       <tr>
         <td valign="top" width="33%" style="padding:20px 22px;border-right:1px solid #991b1b;">
           <div style="font-size:11px;font-weight:700;color:#f8bf51;text-transform:uppercase;letter-spacing:0.09em;margin-bottom:6px;">Order</div>
@@ -689,17 +689,17 @@ function buildFooter(settings: ResolvedSettings, domain: string): string {
       <div style="font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:16px;">
         ${esc(settings.logoText)}
       </div>
-      <div style="font-size:11.5px;color:#b0a99a;line-height:1.7;margin-bottom:12px;">
+      <div style="font-size:11.5px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:12px;">
         ${esc(settings.address)}<br/>${esc(settings.city)}
       </div>
       <div style="font-size:11.5px;margin-bottom:12px;">
         <a href="${esc(domain)}/unsubscribe" target="_blank" style="color:#f8bf51;text-decoration:underline;">Unsubscribe</a>
-        <span style="color:#6b6256;">&nbsp;&bull;&nbsp;</span>
+        <span style="color:rgba(255,255,255,0.5);">&nbsp;&bull;&nbsp;</span>
         <a href="${esc(domain)}/privacy" target="_blank" style="color:#f8bf51;text-decoration:underline;">Privacy Policy</a>
-        <span style="color:#6b6256;">&nbsp;&bull;&nbsp;</span>
+        <span style="color:rgba(255,255,255,0.5);">&nbsp;&bull;&nbsp;</span>
         <a href="${esc(domain)}/terms" target="_blank" style="color:#f8bf51;text-decoration:underline;">Terms</a>
       </div>
-      <div style="font-size:11px;color:#6b6256;line-height:1.6;">
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.6;">
         You received this email because you placed an order at ${esc(settings.shopName)}.<br/>
         &copy; ${year} ${esc(settings.shopName)}. All rights reserved.
       </div>
@@ -768,7 +768,7 @@ function buildHeadStyles(): string {
       .dark-white{background-color:#1e1b16!important;}
       .dark-cream{background-color:#201c14!important;}
       .dark-text{color:#ece0cc!important;}
-      .dark-muted{color:#6b6256!important;}
+      .dark-muted{color:rgba(255,255,255,0.5)!important;}
       .dark-divider{border-color:#2e2820!important;}
     }
   </style>`;
@@ -890,7 +890,7 @@ export function getEmailTemplate(
 
                 <tr>
                   <td align="center" style="padding-bottom:26px;">
-                    <p style="margin:0 auto;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.65;color:#b0a99a;max-width:360px;">
+                    <p style="margin:0 auto;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.65;color:rgba(255,255,255,0.6);max-width:360px;">
                       ${cfg.desc}
                     </p>
                   </td>

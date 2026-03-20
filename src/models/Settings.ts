@@ -57,6 +57,9 @@ const SettingsSchema = new Schema(
       razorpayKeyId: { type: String, default: "" },
       razorpayKeySecret: { type: String, default: "" },
       razorpayWebhookSecret: { type: String, default: "" },
+      codEnabled: { type: Boolean, default: false },
+      codCharges: { type: Number, default: 0 },
+      codMinOrderValue: { type: Number, default: 0 },
     },
     smtp: {
       host: { type: String, default: "" },
@@ -73,9 +76,15 @@ const SettingsSchema = new Schema(
   },
   {
     timestamps: true,
+    strict: false, // Allow fields not in schema temporarily
   },
 );
 
-const Settings = models.Settings || model("Settings", SettingsSchema);
+// Delete the model from cache if it exists to force reload
+if (models.Settings) {
+  delete models.Settings;
+}
+
+const Settings = model("Settings", SettingsSchema);
 
 export default Settings;

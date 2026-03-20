@@ -37,6 +37,18 @@ export async function PUT(
       if (body.status === "Delivered") {
         updateData.isDelivered = true;
         updateData.deliveredAt = Date.now();
+        
+        // Auto-mark COD orders as paid when delivered
+        if (existingOrder.paymentMethod === "Cash on Delivery" && !existingOrder.isPaid) {
+          updateData.isPaid = true;
+          updateData.paidAt = Date.now();
+          updateData.paymentResult = {
+            id: `COD_${id}`,
+            status: "completed",
+            update_time: new Date().toISOString(),
+            email_address: existingOrder.shippingAddress?.email || "",
+          };
+        }
       } else {
         updateData.isDelivered = false;
         updateData.deliveredAt = null;
