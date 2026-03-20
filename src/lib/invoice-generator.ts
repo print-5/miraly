@@ -18,8 +18,8 @@ export const generateInvoiceHTML = async (order: any) => {
 
   if (!settings) {
     settings = {
-      shopName: "Sai Nandhini Tasty World",
-      contactEmail: "info@sainandhini.com",
+      shopName: "Miraly Foods",
+      contactEmail: "info@miralyfoods.com",
       contactPhone: "+91 96009 16065",
       address:
         "# 3/81, 1st Floor, Kaveri Main Street, SRV Nagar, Thirunagar, Madurai - 625006",

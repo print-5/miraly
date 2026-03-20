@@ -302,7 +302,7 @@ export default function TrackOrderClient() {
                                             <ShieldCheck size={18} className="text-red-500" /> Safe & Secure
                                         </h4>
                                         <p className="text-sm text-gray-500 leading-relaxed italic">
-                                            "At Sai Nandhini, we ensure every treat is packed with care and delivered fresh to your doorstep. Thank you for choosing us!"
+                                            "At Miraly Foods, we ensure every treat is packed with care and delivered fresh to your doorstep. Thank you for choosing us!"
                                         </p>
                                     </div>
                                 </aside>

@@ -29,7 +29,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${page.title} | Sai Nandhini`,
+    title: `${page.title} | Miraly Foods`,
     description: page.content.substring(0, 160).replace(/<[^>]*>/g, ""),
   };
 }

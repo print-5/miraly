@@ -103,7 +103,7 @@ export async function POST(req: Request) {
     if (file && file instanceof File) {
       const buffer = Buffer.from(await file.arrayBuffer());
       const base64Image = `data:${file.type};base64,${buffer.toString("base64")}`;
-      const result = await uploadToCloudinary(base64Image, "sainandhini/hero");
+      const result = await uploadToCloudinary(base64Image, "miraly/hero");
       imageValue = result.public_id;
     }
 

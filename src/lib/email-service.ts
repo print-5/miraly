@@ -88,7 +88,7 @@ export const sendOrderConfirmationEmail = async (
 
     // Get company settings
     const settings = await Settings.findOne();
-    const companyName = settings?.shopName || "Sai Nandhini Tasty World";
+    const companyName = settings?.shopName || "Miraly Foods";
     const companyEmail = settings?.contactEmail || emailConfig.auth.user;
 
     const { html, subject } = getEmailTemplate(order, settings);
@@ -139,7 +139,7 @@ export const sendStatusUpdateEmail = async (order: any) => {
 
     const transporter = nodemailer.createTransport(emailConfig as any);
     const settings = await Settings.findOne();
-    const companyName = settings?.shopName || "Sai Nandhini Tasty World";
+    const companyName = settings?.shopName || "Miraly Foods";
     const companyEmail = settings?.contactEmail || emailConfig.auth.user;
 
     let statusMessage = "The status of your order has been updated.";

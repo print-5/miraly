@@ -2,8 +2,8 @@ import mongoose, { Schema, model, models } from "mongoose";
 
 const SettingsSchema = new Schema(
   {
-    shopName: { type: String, default: "Sai Nandhini Tasty World" },
-    contactEmail: { type: String, default: "info@sainandhini.com" },
+    shopName: { type: String, default: "Miraly Foods" },
+    contactEmail: { type: String, default: "info@miralyfoods.com" },
     contactPhone: { type: String, default: "+91 96009 16065" },
     address: {
       type: String,
@@ -40,7 +40,7 @@ const SettingsSchema = new Schema(
     seo: {
       metaTitle: {
         type: String,
-        default: "Sai Nandhini Tasty World - Authentic Pickles & Sweets",
+        default: "Miraly Foods - Authentic Pickles & Sweets",
       },
       metaDescription: {
         type: String,

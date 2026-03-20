@@ -111,7 +111,7 @@ export const getUrlFromPublicId = (
  */
 export const uploadToCloudinary = async (
   file: string,
-  folder = "sainandhini/images",
+  folder = "miraly/images",
   customPublicId: string | null = null,
 ) => {
   try {

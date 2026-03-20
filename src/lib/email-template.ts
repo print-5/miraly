@@ -140,7 +140,7 @@ function buildStatusConfig(
     progressColor: "#f8bf51",
     showProgress: true,
     preheader: `Your order has been confirmed â€” ${formattedTotal} total. We'll email you when it ships.`,
-    emailSubject: "Your Sai Nandhini order is confirmed!",
+    emailSubject: "Your Miraly Foods order is confirmed!",
     step1State: "active",
     step2State: "inactive",
     step3State: "inactive",
@@ -162,7 +162,7 @@ function buildStatusConfig(
         progressWidth: "10%",
         preheader:
           "Your order is being prepared â€” we'll notify you when it ships.",
-        emailSubject: "Your Sai Nandhini order is being processed",
+        emailSubject: "Your Miraly Foods order is being processed",
         step1State: "done",
         step2State: "inactive",
       };
@@ -185,7 +185,7 @@ function buildStatusConfig(
           : "Tracking details will be updated shortly. Check the app for live status.",
         progressWidth: "50%",
         preheader: "Your order has shipped and is on its way to you!",
-        emailSubject: "Your Sai Nandhini order has been dispatched!",
+        emailSubject: "Your Miraly Foods order has been dispatched!",
         step1State: "done",
         step2State: "active",
         step3State: "inactive",
@@ -219,7 +219,7 @@ function buildStatusConfig(
         showProgress: true,
         preheader:
           "Your order is out for delivery â€” expected today between 2â€“6 PM!",
-        emailSubject: "Your Sai Nandhini order is out for delivery today!",
+        emailSubject: "Your Miraly Foods order is out for delivery today!",
         step1State: "done",
         step2State: "done",
         step3State: "active",
@@ -252,7 +252,7 @@ function buildStatusConfig(
         progressColor: "#4caf50",
         showProgress: true,
         preheader: `Your order has arrived! Leave a review and get 10% off your next order.`,
-        emailSubject: "Your Sai Nandhini order has been delivered! ðŸŽ‰",
+        emailSubject: "Your Miraly Foods order has been delivered! ðŸŽ‰",
         step1State: "done",
         step2State: "done",
         step3State: "done",
@@ -280,12 +280,12 @@ function buildStatusConfig(
         cardBg: "#fff5f5",
         cardBorder: "#e0525230",
         cardBody: order.cancelReason
-          ? `<strong>Reason:</strong> ${esc(order.cancelReason)}<br/>If you didn't request this cancellation, please <a href="mailto:info@sainandhini.com" style="color:#b03030;font-weight:700;">contact us immediately</a>.`
+          ? `<strong>Reason:</strong> ${esc(order.cancelReason)}<br/>If you didn't request this cancellation, please <a href="mailto:info@miralyfoods.com" style="color:#b03030;font-weight:700;">contact us immediately</a>.`
           : "If you didn't request this cancellation, please contact us immediately.",
         progressWidth: "0%",
         showProgress: false,
         preheader: `Your order has been cancelled. A refund of ${formattedTotal} is on its way.`,
-        emailSubject: "Your Sai Nandhini order has been cancelled",
+        emailSubject: "Your Miraly Foods order has been cancelled",
         step1State: "inactive",
         step2State: "inactive",
         step3State: "inactive",
@@ -719,20 +719,20 @@ interface ResolvedSettings {
 }
 
 function resolveSettings(settings: ShopSettings | undefined): ResolvedSettings {
-  const shopName = settings?.shopName || "Sai Nandhini Tasty World";
+  const shopName = settings?.shopName || "Miraly Foods";
   const words = shopName.trim().split(/\s+/);
   const logoText = words.slice(0, 2).join(" ");
 
   return {
     shopName,
-    contactEmail: settings?.contactEmail || "info@sainandhini.com",
+    contactEmail: settings?.contactEmail || "info@miralyfoods.com",
     contactPhone: settings?.contactPhone || "+91 96009 16065",
     address:
       settings?.address ||
       "# 3/81, 1st Floor, Kaveri Main Street, SRV Nagar, Thirunagar",
     city: settings?.city || "Madurai - 625006",
     logoText,
-    domain: settings?.appUrl ?? "https://sainandhini.com",
+    domain: settings?.appUrl ?? "https://miralyfoods.com",
   };
 }
 

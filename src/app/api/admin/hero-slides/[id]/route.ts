@@ -51,7 +51,7 @@ export async function PUT(
       }
       const buffer = Buffer.from(await file.arrayBuffer());
       const base64Image = `data:${file.type};base64,${buffer.toString("base64")}`;
-      const result = await uploadToCloudinary(base64Image, "sainandhini/hero");
+      const result = await uploadToCloudinary(base64Image, "miraly/hero");
       updateData.image = result.public_id;
     } else if (updateData.image && updateData.image.startsWith("http")) {
       // Normalize URL to publicId if it's Cloudinary

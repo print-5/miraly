@@ -256,7 +256,7 @@ export default function CheckoutClient({
         key: rzpOrder.key, // Use key from backend response
         amount: rzpOrder.amount,
         currency: rzpOrder.currency,
-        name: initialSettings?.shopName || "Sai Nandhini Tasty World",
+        name: initialSettings?.shopName || "Miraly Foods",
         description:
           initialSettings?.seo?.metaDescription ||
           "Authentic South Indian Delicacies",

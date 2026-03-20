@@ -7,7 +7,7 @@ export async function POST() {
   try {
     await connectDB();
 
-    const adminEmail = process.env.ADMIN_EMAIL || "admin@sainandhini.com";
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@miralyfoods.com";
     const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
 
     const db = client.db();

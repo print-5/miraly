@@ -59,7 +59,7 @@ export async function PUT(
         const base64Image = `data:${file.type};base64,${buffer.toString("base64")}`;
         const { secure_url } = await uploadToCloudinary(
           base64Image,
-          "sainandhini/products",
+          "miraly/products",
         );
         uploadedUrls.push(secure_url);
       }

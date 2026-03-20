@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Checkout | Sai Nandhini",
+  title: "Checkout | Miraly Foods",
   description: "Secure checkout for your authentic homemade sweets.",
 };
 

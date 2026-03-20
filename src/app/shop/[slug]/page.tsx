@@ -22,7 +22,7 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | Sai Nandhini Tasty World",
+      title: "Product Not Found | Miraly Foods",
     };
   }
 

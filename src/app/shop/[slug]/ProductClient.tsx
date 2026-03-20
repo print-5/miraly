@@ -269,7 +269,7 @@ export default function ProductClient({
                       navigator
                         .share({
                           title: product.name,
-                          text: `Check out ${product.name} on Sai Nandhini Tasty World!`,
+                          text: `Check out ${product.name} on Miraly Foods!`,
                           url: window.location.href,
                         })
                         .catch(console.error);

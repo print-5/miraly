@@ -78,7 +78,7 @@ export async function POST(req: Request) {
         const base64Image = `data:${logoFile.type};base64,${buffer.toString("base64")}`;
         const result = await uploadToCloudinary(
           base64Image,
-          "sainandhini/brand",
+          "miraly/brand",
         );
         data.logo = result.secure_url;
       }
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
         const base64Image = `data:${faviconFile.type};base64,${buffer.toString("base64")}`;
         const result = await uploadToCloudinary(
           base64Image,
-          "sainandhini/brand",
+          "miraly/brand",
         );
         data.favicon = result.secure_url;
       }

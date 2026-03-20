@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function FindPlaceIdPage() {
   const [apiKey, setApiKey] = useState("");
-  const [businessName, setBusinessName] = useState("Sai Nandhini Tasty World Madurai");
+  const [businessName, setBusinessName] = useState("Miraly Foods Madurai");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
 

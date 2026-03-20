@@ -21,7 +21,7 @@ const playfair = Playfair_Display({
 
 export async function generateMetadata(): Promise<Metadata> {
   const defaultMeta = {
-    title: "Sai Nandhini Tasty World | Authentic South Indian Delicacies",
+    title: "Miraly Foods | Authentic South Indian Delicacies",
     description:
       "Experience the magic of traditional sweets and savories crafted with love and the finest ingredients.",
     keywords:
@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const settings = await Settings.findOne().select("seo favicon shopName");
 
     if (settings) {
-      const siteName = settings.shopName || "Sai Nandhini Tasty World";
+      const siteName = settings.shopName || "Miraly Foods";
       return {
         title: settings.seo?.metaTitle || siteName,
         description: settings.seo?.metaDescription || defaultMeta.description,

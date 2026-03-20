@@ -182,7 +182,7 @@ export default function InvoiceClient({
             Ph: {settings?.contactPhone || "+91 96009 16065"}
           </p>
           <p className="text-sm text-gray-500">
-            Email: {settings?.contactEmail || "info@sainandhini.com"}
+            Email: {settings?.contactEmail || "info@miralyfoods.com"}
           </p>
         </div>
         <div className="text-right">
@@ -312,7 +312,7 @@ export default function InvoiceClient({
         </p>
         <p>
           For any queries, please contact{" "}
-          {settings?.contactEmail || "info@sainandhini.com"}
+          {settings?.contactEmail || "info@miralyfoods.com"}
         </p>
         <p className="mt-4 text-[10px] text-gray-300">
           Computer generated invoice. No signature required.

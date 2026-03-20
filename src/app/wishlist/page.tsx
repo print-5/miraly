@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import WishlistClient from "./WishlistClient";
 
 export const metadata = {
-  title: "My Wishlist | Sai Nandhini",
-  description: "Your saved favorite products from Sai Nandhini.",
+  title: "My Wishlist | Miraly Foods",
+  description: "Your saved favorite products from Miraly Foods.",
 };
 
 export default function WishlistPage() {
