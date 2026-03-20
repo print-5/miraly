@@ -16,6 +16,9 @@ export const metadata = {
     "Discover the finest collection of authentic masalas, spices, and traditional food products from Miraly Foods. Premium quality, traditional recipes, modern packaging.",
 };
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const [heroSlides, categories, products] = await Promise.all([
     getHeroSlides(),

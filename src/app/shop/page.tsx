@@ -11,6 +11,9 @@ export const metadata = {
     "Browse our collection of authentic masala blends and premium spices. Traditional recipes, modern quality standards.",
 };
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default async function ShopPage() {
   const [products, categories, settings] = await Promise.all([
     getProducts(),

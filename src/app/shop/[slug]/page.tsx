@@ -4,6 +4,9 @@ import ProductClient from "./ProductClient";
 import connectDB from "@/lib/mongodb";
 import Product from "@/models/Product";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 // Helper to fetch product (can act as a primitive cache if moved to a cached function)
 async function getProduct(slug: string) {
   await connectDB();
