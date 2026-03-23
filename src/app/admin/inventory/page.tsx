@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -44,8 +44,8 @@ export default function InventoryPage() {
   const fetchProducts = async () => {
     try {
       const [prodRes, settingsRes] = await Promise.all([
-        fetch("/api/products"),
-        fetch("/api/admin/settings"),
+        fetch(`/api/products?admin=true&t=${Date.now()}`, { cache: "no-store" }),
+        fetch(`/api/admin/settings?t=${Date.now()}`, { cache: "no-store" }),
       ]);
       const productsData = await prodRes.json();
       const settingsData = await settingsRes.json();

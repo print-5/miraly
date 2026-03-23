@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -45,7 +45,7 @@ export default function ProductsClient({
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("/api/products?admin=true");
+      const res = await fetch(`/api/products?admin=true&t=${Date.now()}`, { cache: 'no-store' });
       const data = await res.json();
       if (Array.isArray(data)) {
         setProducts(data);
