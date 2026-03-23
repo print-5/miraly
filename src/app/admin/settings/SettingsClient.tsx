@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -152,6 +152,8 @@ export default function SettingsClient({
   const [message, setMessage] = useState("");
   const [showRzpSecret, setShowRzpSecret] = useState(false);
   const [showSmtpPass, setShowSmtpPass] = useState(false);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [faviconFile, setFaviconFile] = useState<File | null>(null);
 
   // Sync settings when initialSettings prop changes
   useEffect(() => {
@@ -179,17 +181,33 @@ export default function SettingsClient({
     setSaving(true);
     setMessage("");
     try {
-      const res = await fetch("/api/admin/settings", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(settings),
-      });
+      let res;
+      // If we have a new file, we must use FormData to trigger Cloudinary upload
+      if (logoFile || faviconFile) {
+        const formData = new FormData();
+        formData.append("data", JSON.stringify(settings));
+        if (logoFile) formData.append("logo", logoFile);
+        if (faviconFile) formData.append("favicon", faviconFile);
+
+        res = await fetch("/api/admin/settings", {
+          method: "PUT",
+          body: formData,
+        });
+      } else {
+        res = await fetch("/api/admin/settings", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(settings),
+        });
+      }
 
       const data = await res.json();
 
       if (res.ok) {
         toast.success("Settings saved successfully");
         setMessage("Settings saved successfully!");
+        setLogoFile(null);
+        setFaviconFile(null);
         // Refresh settings to get masked passwords back
         const refreshRes = await fetch("/api/admin/settings");
         const refreshedData = await refreshRes.json();
@@ -293,9 +311,10 @@ export default function SettingsClient({
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                           <button
                             type="button"
-                            onClick={() =>
-                              setSettings({ ...settings, logo: "" })
-                            }
+                            onClick={() => {
+                              setSettings({ ...settings, logo: "" });
+                              setLogoFile(null);
+                            }}
                             className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
                           >
                             <X size={16} />
@@ -322,7 +341,7 @@ export default function SettingsClient({
                                 toast.error("File size must be less than 5MB");
                                 return;
                               }
-                              // For now, just set the file object - you'll need to upload it
+                              setLogoFile(file);
                               const reader = new FileReader();
                               reader.onloadend = () => {
                                 setSettings({
@@ -358,9 +377,10 @@ export default function SettingsClient({
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                           <button
                             type="button"
-                            onClick={() =>
-                              setSettings({ ...settings, favicon: "" })
-                            }
+                            onClick={() => {
+                              setSettings({ ...settings, favicon: "" });
+                              setFaviconFile(null);
+                            }}
                             className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
                           >
                             <X size={14} />
@@ -384,6 +404,7 @@ export default function SettingsClient({
                                 toast.error("File size must be less than 1MB");
                                 return;
                               }
+                              setFaviconFile(file);
                               const reader = new FileReader();
                               reader.onloadend = () => {
                                 setSettings({
