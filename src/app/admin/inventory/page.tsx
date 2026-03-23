@@ -141,8 +141,8 @@ export default function InventoryPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 bg-white p-5 sm:p-10 rounded-[1.5rem] sm:rounded-[3rem] border border-gray-100 shadow-sm mb-8">
         <div className="min-w-0">
-          <h1 className="text-xl sm:text-3xl lg:text-4xl font-serif font-black text-[gray-900] leading-none">
-            Stock <span className="text-[orange-600] italic">Control</span>
+          <h1 className="text-xl sm:text-3xl lg:text-4xl font-serif font-black text-gray-900 leading-none">
+            Stock <span className="text-red-600 italic">Control</span>
           </h1>
           <p className="text-gray-400 mt-2 font-medium text-[10px] sm:text-sm truncate">
             Track movement and reconcile warehouse stock.
@@ -151,10 +151,10 @@ export default function InventoryPage() {
       </div>
 
       {/* Search Top Bar */}
-      <div className="sticky top-0 z-30 py-3 sm:py-5 bg-[gray-50]/90 backdrop-blur-md">
+      <div className="sticky top-0 z-30 py-3 sm:py-5 bg-gray-50/90 backdrop-blur-md">
         <div className="relative w-full shadow-sm rounded-xl sm:rounded-2xl group bg-white border border-gray-100">
           <Search
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[gray-900] transition-colors"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-red-600 transition-colors"
             size={16}
           />
           <input
@@ -162,7 +162,7 @@ export default function InventoryPage() {
             placeholder="Search items..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent py-3 sm:py-4 pl-12 pr-4 outline-none font-bold text-[gray-900] placeholder:text-gray-300 touch-manipulation text-[11px] sm:text-sm"
+            className="w-full bg-transparent py-3 sm:py-4 pl-12 pr-4 outline-none font-bold text-gray-900 placeholder:text-gray-300 touch-manipulation text-[11px] sm:text-sm"
           />
         </div>
       </div>
@@ -171,7 +171,7 @@ export default function InventoryPage() {
       <div className="space-y-4">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
-            <div className="w-12 h-12 border-4 border-[orange-600] border-t-transparent rounded-full animate-spin mb-6" />
+            <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mb-6" />
             <p className="font-bold text-gray-400 uppercase tracking-widest text-xs">
               Syncing Inventory...
             </p>
@@ -179,7 +179,7 @@ export default function InventoryPage() {
         ) : filteredProducts.length === 0 ? (
           <div className="bg-white rounded-[1.5rem] sm:rounded-[2rem] p-8 sm:p-12 text-center border-2 border-dashed border-gray-100">
             <Package className="w-12 h-12 sm:w-16 sm:h-16 text-gray-200 mx-auto mb-4" />
-            <h3 className="text-lg sm:text-xl font-serif font-bold text-[gray-900] mb-2">
+            <h3 className="text-lg sm:text-xl font-serif font-bold text-gray-900 mb-2">
               No Items Found
             </h3>
             <p className="text-gray-400 text-xs sm:text-sm max-w-md mx-auto">
@@ -206,9 +206,9 @@ export default function InventoryPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                   onClick={() => handleManageStock(p)}
-                  className="group bg-white rounded-[1.5rem] sm:rounded-[20px] p-4 sm:p-5 border border-gray-100 hover:border-[orange-600]/30 hover:shadow-lg hover:shadow-[orange-600]/5 transition-all duration-300 cursor-pointer flex flex-col md:flex-row items-center gap-4 sm:gap-6 relative overflow-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
+                  className="group bg-white rounded-[1.5rem] sm:rounded-[20px] p-4 sm:p-5 border border-gray-100 hover:border-red-600/30 hover:shadow-lg hover:shadow-red-600/5 transition-all duration-300 cursor-pointer flex flex-col md:flex-row items-center gap-4 sm:gap-6 relative overflow-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
                 >
-                  <div className="w-16 h-16 bg-[gray-50] rounded-xl sm:rounded-2xl overflow-hidden shrink-0 relative">
+                  <div className="w-16 h-16 bg-gray-50 rounded-xl sm:rounded-2xl overflow-hidden shrink-0 relative">
                     {p.images?.[0] ? (
                       <Image
                         src={p.images[0]}
@@ -225,14 +225,11 @@ export default function InventoryPage() {
                   </div>
 
                   <div className="flex-grow min-w-0 text-center md:text-left">
-                    <h3 className="font-bold text-[gray-900] text-base sm:text-lg leading-tight group-hover:text-[orange-600] transition-colors truncate">
+                    <h3 className="font-bold text-gray-900 text-base sm:text-lg leading-tight group-hover:text-red-600 transition-colors truncate">
                       {p.name}
                     </h3>
                     <p className="text-[9px] sm:text-xs font-black text-gray-400 uppercase tracking-widest mt-1">
-                      {p.category} â€¢{" "}
-                      {p.variants?.length
-                        ? `${p.variants.length} Var`
-                        : "Single"}
+                      {p.category} • {p.variants?.length ? `${p.variants.length} Var` : "Single"}
                     </p>
                   </div>
 
@@ -253,7 +250,7 @@ export default function InventoryPage() {
                       </div>
                     </div>
 
-                    <div className="bg-[#FAF3E0] p-2.5 sm:p-3 rounded-xl text-[orange-600] sm:opacity-0 sm:group-hover:opacity-100 transform sm:translate-x-4 sm:group-hover:translate-x-0 transition-all active:scale-90">
+                    <div className="bg-red-50 p-2.5 sm:p-3 rounded-xl text-red-600 sm:opacity-0 sm:group-hover:opacity-100 transform sm:translate-x-4 sm:group-hover:translate-x-0 transition-all active:scale-90">
                       <History size={16} className="sm:w-5 sm:h-5" />
                     </div>
                   </div>
@@ -283,14 +280,13 @@ export default function InventoryPage() {
               className="bg-white w-full max-w-5xl max-h-[90vh] rounded-[32px] shadow-2xl overflow-hidden flex flex-col relative z-10"
             >
               {/* Modal Header */}
-              <div className="px-6 sm:px-10 py-6 border-b border-gray-100 flex justify-between items-center bg-[gray-50]/50">
+              <div className="px-6 sm:px-10 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <div className="min-w-0 pr-4">
-                  <h2 className="text-xl sm:text-3xl font-serif font-black text-[gray-900] leading-tight truncate">
+                  <h2 className="text-xl sm:text-3xl font-serif font-black text-gray-900 leading-tight truncate">
                     {selectedProduct.name}
                   </h2>
                   <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1.5 flex items-center gap-2">
-                    <Package size={12} className="text-[orange-600]" /> Warehouse
-                    Manager
+                    <Package size={12} className="text-red-600" /> Warehouse Manager
                   </p>
                 </div>
                 <button
@@ -305,7 +301,7 @@ export default function InventoryPage() {
                 {/* Left Col: Stock Actions */}
                 <div className="space-y-8">
                   <div>
-                    <h3 className="text-xs font-black uppercase tracking-widest text-[gray-900] mb-4">
+                    <h3 className="text-xs font-black uppercase tracking-widest text-gray-900 mb-4">
                       Current Stock Levels
                     </h3>
                     <div className="space-y-3">
@@ -314,7 +310,7 @@ export default function InventoryPage() {
                         selectedProduct.variants.map((v: any, i: number) => (
                           <div
                             key={i}
-                            className={`p-5 rounded-2xl border transition-colors cursor-pointer group focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation ${selectedVariant?.uom === v.uom ? "border-[orange-600] bg-[orange-600]/5 ring-1 ring-[orange-600]/20" : "border-gray-100 hover:border-gray-200 hover:bg-gray-50"}`}
+                            className={`p-5 rounded-2xl border transition-colors cursor-pointer group focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation ${selectedVariant?.uom === v.uom ? "border-red-600 bg-red-50 ring-1 ring-red-600/20" : "border-gray-100 hover:border-gray-200 hover:bg-gray-50"}`}
                             onClick={() => {
                               setSelectedVariant(v);
                               setActionType(null);
@@ -322,11 +318,11 @@ export default function InventoryPage() {
                           >
                             <div className="flex justify-between items-center gap-4">
                               <div className="flex items-center gap-3 min-w-0">
-                                <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[gray-900] font-bold text-[10px] sm:text-xs shadow-sm border border-gray-100 shrink-0">
+                                <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-900 font-bold text-[10px] sm:text-xs shadow-sm border border-gray-100 shrink-0">
                                   {v.uom.slice(0, 2).toUpperCase()}
                                 </div>
                                 <div className="min-w-0">
-                                  <p className="font-bold text-[gray-900] text-sm sm:text-base truncate">
+                                  <p className="font-bold text-gray-900 text-sm sm:text-base truncate">
                                     {v.uom}
                                   </p>
                                   <p className="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wider truncate">
@@ -336,7 +332,7 @@ export default function InventoryPage() {
                               </div>
                               <div className="text-right shrink-0">
                                 <span
-                                  className={`text-lg sm:text-2xl font-serif font-black tabular-nums ${v.stock <= threshold ? "text-red-500" : "text-[gray-900]"}`}
+                                  className={`text-lg sm:text-2xl font-serif font-black tabular-nums ${v.stock <= threshold ? "text-red-500" : "text-gray-900"}`}
                                 >
                                   {v.stock || 0}
                                 </span>
@@ -350,14 +346,14 @@ export default function InventoryPage() {
                               <motion.div
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: "auto" }}
-                                className="pt-4 mt-4 border-t border-[orange-600]/10 flex gap-3"
+                                className="pt-4 mt-4 border-t border-red-600/10 flex gap-3"
                               >
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     setActionType("purchase");
                                   }}
-                                  className="flex-1 py-2.5 sm:py-3 bg-[gray-900] text-white rounded-xl text-[9px] sm:text-xs font-bold uppercase tracking-widest hover:bg-[#1a3a14] transition-colors flex justify-center items-center gap-1 sm:gap-2 shadow-lg shadow-[gray-900]/20 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
+                                  className="flex-1 py-2.5 sm:py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-xl text-[9px] sm:text-xs font-bold uppercase tracking-widest hover:from-red-700 hover:to-red-600 transition-colors flex justify-center items-center gap-1 sm:gap-2 shadow-lg shadow-red-600/20 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
                                 >
                                   <ArrowDownRight
                                     size={12}
@@ -399,7 +395,7 @@ export default function InventoryPage() {
                                 setSelectedVariant(null);
                                 setActionType("purchase");
                               }}
-                              className="px-6 py-3 bg-[gray-900] text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-lg hover:bg-[#1a3a14] transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
+                              className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-lg hover:from-red-700 hover:to-red-600 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation"
                             >
                               Manage Stock
                             </button>
@@ -416,19 +412,19 @@ export default function InventoryPage() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="bg-[#FAF3E0] p-6 rounded-[24px] border border-[orange-600]/20 relative overflow-hidden"
+                        className="bg-red-50 p-6 rounded-[24px] border border-red-600/20 relative overflow-hidden"
                       >
                         <div className="absolute top-0 right-0 p-4 opacity-10">
                           {actionType === "purchase" ? (
                             <ArrowDownRight
                               size={80}
-                              className="text-[gray-900]"
+                              className="text-red-600"
                             />
                           ) : (
-                            <History size={80} className="text-[orange-600]" />
+                            <History size={80} className="text-red-600" />
                           )}
                         </div>
-                        <h4 className="font-bold text-[gray-900] mb-6 flex items-center gap-2 relative z-10">
+                        <h4 className="font-bold text-gray-900 mb-6 flex items-center gap-2 relative z-10">
                           {actionType === "purchase"
                             ? "Record Incoming Stock"
                             : "Inventory Adjustment"}
@@ -436,7 +432,7 @@ export default function InventoryPage() {
 
                         <div className="grid grid-cols-2 gap-4 relative z-10">
                           <div className="col-span-2">
-                            <label className="text-[10px] font-bold text-[gray-900]/60 uppercase tracking-widest mb-1.5 block">
+                            <label className="text-[10px] font-bold text-gray-900/60 uppercase tracking-widest mb-1.5 block">
                               Quantity Change
                             </label>
                             <input
@@ -446,7 +442,7 @@ export default function InventoryPage() {
                                 setQuantity(Number(e.target.value))
                               }
                               placeholder="0"
-                              className="w-full bg-white p-3 sm:p-4 rounded-xl shadow-sm text-base sm:text-lg font-bold text-[gray-900] outline-none transition-shadow font-serif focus-visible:ring-2 focus-visible:ring-[orange-600]/50 touch-manipulation tabular-nums"
+                              className="w-full bg-white p-3 sm:p-4 rounded-xl shadow-sm text-base sm:text-lg font-bold text-gray-900 outline-none transition-shadow font-serif focus-visible:ring-2 focus-visible:ring-red-600/50 touch-manipulation tabular-nums"
                             />
                           </div>
 
@@ -463,7 +459,7 @@ export default function InventoryPage() {
                                     setCost(Number(e.target.value))
                                   }
                                   placeholder="0.00"
-                                  className="w-full bg-white p-3 rounded-xl border-none outline-none transition-shadow font-bold focus-visible:ring-2 focus-visible:ring-[orange-600]/50 touch-manipulation tabular-nums"
+                                  className="w-full bg-white p-3 rounded-xl border-none outline-none transition-shadow font-bold focus-visible:ring-2 focus-visible:ring-red-600/50 touch-manipulation tabular-nums"
                                 />
                               </div>
                               <div>
@@ -475,7 +471,7 @@ export default function InventoryPage() {
                                   value={supplier}
                                   onChange={(e) => setSupplier(e.target.value)}
                                   placeholder="Vendor Name"
-                                  className="w-full bg-white p-3 rounded-xl border-none outline-none transition-shadow font-medium focus-visible:ring-2 focus-visible:ring-[orange-600]/50 touch-manipulation"
+                                  className="w-full bg-white p-3 rounded-xl border-none outline-none transition-shadow font-medium focus-visible:ring-2 focus-visible:ring-red-600/50 touch-manipulation"
                                 />
                               </div>
                             </>
@@ -487,7 +483,7 @@ export default function InventoryPage() {
                               <select
                                 value={reason}
                                 onChange={(e) => setReason(e.target.value)}
-                                className="w-full bg-white p-3 rounded-xl outline-none font-medium cursor-pointer transition-shadow focus-visible:ring-2 focus-visible:ring-[orange-600]/50 touch-manipulation"
+                                className="w-full bg-white p-3 rounded-xl outline-none font-medium cursor-pointer transition-shadow focus-visible:ring-2 focus-visible:ring-red-600/50 touch-manipulation"
                               >
                                 <option value="">Select Reason...</option>
                                 <option value="Damaged">
@@ -511,7 +507,7 @@ export default function InventoryPage() {
                           <button
                             onClick={handleSubmit}
                             disabled={formLoading}
-                            className="flex-[2] py-3 bg-[gray-900] text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:bg-[#1a3a14] transition-colors uppercase tracking-widest text-xs flex justify-center items-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="flex-[2] py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-600 transition-colors uppercase tracking-widest text-xs flex justify-center items-center gap-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none touch-manipulation disabled:opacity-70 disabled:cursor-not-allowed"
                           >
                             {formLoading ? (
                               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -527,12 +523,12 @@ export default function InventoryPage() {
                 </div>
 
                 {/* Right Col: History */}
-                <div className="bg-[gray-50] rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-8 flex flex-col h-[400px] sm:h-[600px] border border-[gray-900]/5">
+                <div className="bg-gray-50 rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-8 flex flex-col h-[400px] sm:h-[600px] border border-gray-900/5">
                   <div className="flex justify-between items-center mb-4 sm:mb-6">
-                    <h3 className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-[gray-900]">
+                    <h3 className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-gray-900">
                       Transaction Log
                     </h3>
-                    <div className="p-1.5 sm:p-2 bg-white rounded-lg text-[orange-600] shadow-sm">
+                    <div className="p-1.5 sm:p-2 bg-white rounded-lg text-red-600 shadow-sm">
                       <History size={14} className="sm:w-4 sm:h-4" />
                     </div>
                   </div>
@@ -542,7 +538,7 @@ export default function InventoryPage() {
                       <div className="h-full flex flex-col items-center justify-center text-center opacity-40">
                         <ClipboardList
                           size={40}
-                          className="mb-2 text-[gray-900]"
+                          className="mb-2 text-gray-900"
                         />
                         <p className="text-xs font-bold uppercase tracking-widest">
                           No transactions yet
@@ -552,7 +548,7 @@ export default function InventoryPage() {
                       history.map((tx, idx) => (
                         <div
                           key={idx}
-                          className="bg-white p-3 sm:p-5 rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 group hover:border-[orange-600]/30 transition-all"
+                          className="bg-white p-3 sm:p-5 rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 group hover:border-red-600/30 transition-all"
                         >
                           <div className="flex justify-between items-start mb-2">
                             <div className="flex items-center gap-2">
@@ -572,7 +568,7 @@ export default function InventoryPage() {
                                 )}
                               </div>
                               <div>
-                                <p className="text-[9px] sm:text-xs font-black text-[gray-900] uppercase tracking-wide">
+                                <p className="text-[9px] sm:text-xs font-black text-gray-900 uppercase tracking-wide">
                                   {tx.type}
                                 </p>
                                 <p className="text-[8px] font-bold text-gray-400">
@@ -596,7 +592,7 @@ export default function InventoryPage() {
                           )}
                           {tx.supplier && (
                             <div className="mt-2 text-[10px] bg-gray-50 p-2 rounded-lg font-medium text-gray-500 flex items-center gap-2">
-                              <span className="w-1.5 h-1.5 bg-[orange-600] rounded-full" />{" "}
+                              <span className="w-1.5 h-1.5 bg-red-600 rounded-full" />{" "}
                               {tx.supplier}
                             </div>
                           )}
