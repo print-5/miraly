@@ -37,16 +37,23 @@ export async function POST(req: Request) {
     }
 
     await connectDB();
-    const settings = await Settings.findOne();
+    const settings = await Settings.findOne().lean();
     const manageInventory = settings?.manageInventory ?? true;
 
     // Check and reduce stock if inventory management is enabled
     if (manageInventory) {
+      // OPTIMIZED: Batch fetch all products at once instead of N+1 queries
+      const productIds = orderItems.map((item: any) => item.productId);
+      const products = await Product.find({ _id: { $in: productIds } });
+      
+      // Create a map for quick lookup
+      const productMap = new Map(products.map(p => [p._id.toString(), p]));
+      
       const productsToUpdate = [];
 
       // 1. Validation Loop
       for (const item of orderItems) {
-        const product = await Product.findById(item.productId);
+        const product = productMap.get(item.productId);
         if (!product) {
           return NextResponse.json(
             { error: `Product ${item.name} not found` },
@@ -90,10 +97,8 @@ export async function POST(req: Request) {
         productsToUpdate.push(product);
       }
 
-      // 2. Saving Loop (Only run if all items validated)
-      for (const product of productsToUpdate) {
-        await product.save();
-      }
+      // 2. Batch save all products at once
+      await Promise.all(productsToUpdate.map(product => product.save()));
     }
 
     // Fix for "admin-fallback" or missing user ID

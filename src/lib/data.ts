@@ -6,13 +6,18 @@ import HeroSlide from "@/models/HeroSlide";
 import { getUrlFromPublicId } from "@/lib/cloudinary";
 import { unstable_cache } from "next/cache";
 
-export const getProducts = unstable_cache(async () => {
+export const getProducts = unstable_cache(async (limit?: number) => {
   await connectDB();
-  const products = await Product.find({ isActive: { $ne: false } })
+  let query = Product.find({ isActive: { $ne: false } })
     .sort({ createdAt: -1 })
     .select("-description -seo")
-    .lean()
-    .exec();
+    .lean();
+  
+  if (limit) {
+    query = query.limit(limit);
+  }
+  
+  const products = await query.exec();
   return JSON.parse(JSON.stringify(products));
 }, ["products"], { revalidate: 60, tags: ["products"] });
 

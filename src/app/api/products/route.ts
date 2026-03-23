@@ -10,9 +10,11 @@ export async function GET(req: Request) {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");
-    const isAdmin = searchParams.get("admin") === "true"; // New param to bypass for admin view
-    const exclude = searchParams.get("exclude"); // Exclude specific product ID
-    const limit = searchParams.get("limit"); // Limit number of results
+    const isAdmin = searchParams.get("admin") === "true";
+    const exclude = searchParams.get("exclude");
+    const limit = searchParams.get("limit");
+    const page = searchParams.get("page");
+    const skip = searchParams.get("skip");
 
     const query: any = category ? { category } : {};
 
@@ -20,7 +22,6 @@ export async function GET(req: Request) {
       query.isActive = true;
     }
 
-    // Exclude specific product (for related products)
     if (exclude) {
       query._id = { $ne: exclude };
     }
@@ -28,25 +29,36 @@ export async function GET(req: Request) {
     // Inventory Filtering
     if (!isAdmin) {
       const Settings = (await import("@/models/Settings")).default;
-      const settings = await Settings.findOne();
+      const settings = await Settings.findOne().lean();
 
       if (settings?.manageInventory ?? true) {
-        // If managing inventory, only show products where:
-        // 1. Base stock > 0
-        // 2. OR at least one variant has stock > 0
         query.$or = [{ stock: { $gt: 0 } }, { "variants.stock": { $gt: 0 } }];
       }
     }
 
-    let productsQuery = Product.find(query);
+    let productsQuery = Product.find(query)
+      .select("-description -seo") // Exclude heavy fields
+      .lean();
 
-    // Apply limit if specified
-    if (limit) {
+    // Pagination
+    if (skip) {
+      productsQuery = productsQuery.skip(parseInt(skip));
+    } else if (page) {
+      const pageNum = parseInt(page);
+      const pageSize = limit ? parseInt(limit) : 20;
+      productsQuery = productsQuery.skip((pageNum - 1) * pageSize).limit(pageSize);
+    } else if (limit) {
       productsQuery = productsQuery.limit(parseInt(limit));
     }
 
-    const products = await productsQuery;
-    return NextResponse.json(products);
+    const products = await productsQuery.exec();
+    
+    // Add cache headers for better performance
+    return NextResponse.json(products, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+      },
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -87,18 +99,21 @@ export async function POST(req: Request) {
 
       const body = JSON.parse(dataStr);
       const newImages = formData.getAll("newImages") as File[];
-      const uploadedUrls = [];
+      
+      // OPTIMIZED: Upload images in parallel instead of sequentially
+      const uploadPromises = newImages
+        .filter(file => file && file instanceof File)
+        .map(async (file) => {
+          const buffer = Buffer.from(await file.arrayBuffer());
+          const base64Image = `data:${file.type};base64,${buffer.toString("base64")}`;
+          const { secure_url } = await uploadToCloudinary(
+            base64Image,
+            "miraly/products",
+          );
+          return secure_url;
+        });
 
-      for (const file of newImages) {
-        if (!file || !(file instanceof File)) continue;
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const base64Image = `data:${file.type};base64,${buffer.toString("base64")}`;
-        const { secure_url } = await uploadToCloudinary(
-          base64Image,
-          "miraly/products",
-        );
-        uploadedUrls.push(secure_url);
-      }
+      const uploadedUrls = await Promise.all(uploadPromises);
 
       body.images = [...(body.images || []), ...uploadedUrls];
       const product = await Product.create(body);

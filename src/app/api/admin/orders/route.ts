@@ -9,11 +9,31 @@ export async function GET(req: Request) {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status");
+    const limit = searchParams.get("limit");
+    const page = searchParams.get("page");
 
     const query = status && status !== "All" ? { status } : {};
-    const orders = await Order.find(query).sort({ createdAt: -1 }).lean();
+    
+    let ordersQuery = Order.find(query)
+      .sort({ createdAt: -1 })
+      .lean();
 
-    return NextResponse.json(orders);
+    // Pagination
+    if (page && limit) {
+      const pageNum = parseInt(page);
+      const pageSize = parseInt(limit);
+      ordersQuery = ordersQuery.skip((pageNum - 1) * pageSize).limit(pageSize);
+    } else if (limit) {
+      ordersQuery = ordersQuery.limit(parseInt(limit));
+    }
+
+    const orders = await ordersQuery.exec();
+
+    return NextResponse.json(orders, {
+      headers: {
+        'Cache-Control': 'private, max-age=0, must-revalidate',
+      },
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

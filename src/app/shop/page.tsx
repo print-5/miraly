@@ -16,7 +16,7 @@ export const revalidate = 60;
 
 export default async function ShopPage() {
   const [products, categories, settings] = await Promise.all([
-    getProducts(),
+    getProducts(20), // Further reduced to 20 products for build performance
     getCategories(),
     getSettings(),
   ]);
