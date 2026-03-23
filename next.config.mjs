@@ -6,20 +6,13 @@ const nextConfig = {
     "puppeteer",
   ],
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
         hostname: "**",
       },
     ],
-  },
-  api: {
-    bodyParser: {
-      sizeLimit: '5mb',
-    },
-  },
-  experimental: {
-    serverComponentsExternalPackages: ['puppeteer-core'],
   },
 };
 

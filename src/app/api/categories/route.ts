@@ -8,7 +8,11 @@ export async function GET() {
   try {
     await connectDB();
     const categories = await Category.find();
-    return NextResponse.json(categories);
+    return NextResponse.json(categories, {
+      headers: {
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    });
   } catch (error: any) {
     return NextResponse.json(
       { error: "Failed to fetch categories" },

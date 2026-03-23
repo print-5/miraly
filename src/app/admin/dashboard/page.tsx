@@ -4,6 +4,9 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+// Cache dashboard data for 30 seconds
+export const revalidate = 30;
+
 export default async function AdminDashboardPage() {
   const session = await auth.api.getSession({
     headers: await headers(),

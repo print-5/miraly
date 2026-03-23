@@ -46,7 +46,11 @@ export async function GET() {
       if (masked.smtp?.password) masked.smtp.password = MASKED;
       if (masked.googleMyBusiness?.apiKey)
         masked.googleMyBusiness.apiKey = MASKED;
-      return NextResponse.json(masked);
+      return NextResponse.json(masked, {
+        headers: {
+          "Cache-Control": "public, max-age=60, stale-while-revalidate=300",
+        },
+      });
     }
 
     return NextResponse.json({});

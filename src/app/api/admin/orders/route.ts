@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     const status = searchParams.get("status");
 
     const query = status && status !== "All" ? { status } : {};
-    const orders = await Order.find(query).sort({ createdAt: -1 });
+    const orders = await Order.find(query).sort({ createdAt: -1 }).lean();
 
     return NextResponse.json(orders);
   } catch (error: any) {

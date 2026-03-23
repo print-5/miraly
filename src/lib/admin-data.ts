@@ -77,27 +77,49 @@ export async function getAnalyticsData() {
 export async function getCustomersWithStats() {
   await connectDB();
 
-  // Get all customers (and standard users)
+  // Get all customers (and standard users) with lean()
   const customers = await User.find({ role: { $in: ["customer", "user"] } })
     .select("-password")
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .lean()
+    .exec();
 
-  // Get order stats for each customer
-  const customersWithStats = await Promise.all(
-    customers.map(async (customer) => {
-      const orders = await Order.find({ user: customer._id });
-      const totalSpent = orders.reduce(
-        (sum, order) => sum + (order.isPaid ? order.totalPrice : 0),
-        0,
-      );
-      return {
-        ...customer.toObject(),
-        _id: customer._id.toString(), // Convert ObjectId to string for serialization
-        orderCount: orders.length,
-        totalSpent,
-      };
-    }),
+  // Get order stats for ALL customers in ONE query using aggregation
+  const orderStats = await Order.aggregate([
+    {
+      $match: {
+        user: { $in: customers.map((c: any) => c._id) },
+      },
+    },
+    {
+      $group: {
+        _id: "$user",
+        orderCount: { $sum: 1 },
+        totalSpent: {
+          $sum: { $cond: ["$isPaid", "$totalPrice", 0] },
+        },
+      },
+    },
+  ]);
+
+  // Create a map for quick lookup
+  const statsMap = new Map(
+    orderStats.map((stat) => [stat._id.toString(), stat])
   );
+
+  // Merge customer data with stats
+  const customersWithStats = customers.map((customer: any) => {
+    const stats = statsMap.get(customer._id.toString()) || {
+      orderCount: 0,
+      totalSpent: 0,
+    };
+    return {
+      ...customer,
+      _id: customer._id.toString(),
+      orderCount: stats.orderCount,
+      totalSpent: stats.totalSpent,
+    };
+  });
 
   return JSON.parse(JSON.stringify(customersWithStats));
 }
@@ -113,13 +135,13 @@ export async function getCustomerByPhone(phone: string) {
 
 export async function getCategoriesData() {
   await connectDB();
-  const categories = await Category.find({}).sort({ order: 1 });
+  const categories = await Category.find({}).sort({ order: 1 }).lean();
   return JSON.parse(JSON.stringify(categories));
 }
 
 export async function getCouponsData() {
   await connectDB();
-  const coupons = await Coupon.find({}).sort({ createdAt: -1 });
+  const coupons = await Coupon.find({}).sort({ createdAt: -1 }).lean();
   return JSON.parse(JSON.stringify(coupons));
 }
 
@@ -132,15 +154,15 @@ export async function getDashboardStats(range: string = "week") {
 
   const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-  // 1. Threshold from settings
-  const settings = await Settings.findOne();
+  // 1. Threshold from settings - use lean() for faster query
+  const settings = await Settings.findOne().lean().exec();
   const threshold = settings?.lowStockThreshold || 10;
 
-  // KPIs
-  const productsCount = await Product.countDocuments();
-  const customersCount = await User.countDocuments({
-    role: { $in: ["customer", "user"] },
-  });
+  // KPIs - run in parallel with lean()
+  const [productsCount, customersCount] = await Promise.all([
+    Product.countDocuments(),
+    User.countDocuments({ role: { $in: ["customer", "user"] } }),
+  ]);
 
   // Determine current and comparison period start dates
   let days = 7;
@@ -162,7 +184,7 @@ export async function getDashboardStats(range: string = "week") {
   const prevPeriodStart = new Date(currentPeriodStart);
   prevPeriodStart.setDate(currentPeriodStart.getDate() - days);
 
-  // Growth & Metrics Aggregation
+  // Growth & Metrics Aggregation - add allowDiskUse for large datasets
   const metrics = await Order.aggregate([
     {
       $facet: {
@@ -411,7 +433,7 @@ export async function getDashboardStats(range: string = "week") {
 
 export async function getProductsData() {
   await connectDB();
-  const products = await Product.find({}).sort({ createdAt: -1 });
+  const products = await Product.find({}).sort({ createdAt: -1 }).lean();
   return JSON.parse(JSON.stringify(products));
 }
 
@@ -459,11 +481,12 @@ export async function getOrdersData() {
   await connectDB();
   const orders = await Order.find({})
     .sort({ createdAt: -1 })
-    .populate("user", "name email");
+    .populate("user", "name email")
+    .lean();
   return JSON.parse(JSON.stringify(orders));
 }
 export async function getShippingRatesData() {
   await connectDB();
-  const rates = await ShippingRate.find({}).sort({ minAmount: 1 });
+  const rates = await ShippingRate.find({}).sort({ minAmount: 1 }).lean();
   return JSON.parse(JSON.stringify(rates));
 }

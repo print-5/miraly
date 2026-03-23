@@ -59,6 +59,13 @@ const OrderSchema = new Schema(
   },
 );
 
+// Add indexes for better query performance
+OrderSchema.index({ user: 1, createdAt: -1 });
+OrderSchema.index({ isPaid: 1, createdAt: -1 });
+OrderSchema.index({ status: 1, createdAt: -1 });
+OrderSchema.index({ createdAt: -1 });
+OrderSchema.index({ "orderItems.product": 1 });
+
 const Order = models.Order || model("Order", OrderSchema);
 
 export default Order;

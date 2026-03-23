@@ -11,6 +11,9 @@ const CategorySchema = new Schema({
     timestamps: true,
 });
 
+// Add indexes for better query performance
+CategorySchema.index({ isActive: 1, order: 1 });
+
 const Category = models.Category || model("Category", CategorySchema);
 
 export default Category;

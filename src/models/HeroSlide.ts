@@ -61,6 +61,9 @@ const HeroSlideSchema = new Schema(
   },
 );
 
+// Add compound index for better query performance
+HeroSlideSchema.index({ isActive: 1, order: 1 });
+
 const HeroSlide = models.HeroSlide || model("HeroSlide", HeroSlideSchema);
 
 export default HeroSlide;

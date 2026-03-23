@@ -29,6 +29,11 @@ const ProductSchema = new Schema({
     timestamps: true,
 });
 
+// Add indexes for better query performance
+ProductSchema.index({ isActive: 1, createdAt: -1 });
+ProductSchema.index({ category: 1, isActive: 1 });
+ProductSchema.index({ isFeatured: 1, isActive: 1 });
+
 const Product = models.Product || model("Product", ProductSchema);
 
 export default Product;
