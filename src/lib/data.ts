@@ -32,7 +32,10 @@ export const getCategories = unstable_cache(async () => {
 
 export const getSettings = unstable_cache(async () => {
   await connectDB();
-  const settings = await Settings.findOne().lean().exec();
+  const settings = await Settings.findOne()
+    .select("-logo -favicon -seo.ogImage")
+    .lean()
+    .exec();
   return JSON.parse(JSON.stringify(settings || {}));
 }, ["settings"], { revalidate: 60, tags: ["settings"] });
 
