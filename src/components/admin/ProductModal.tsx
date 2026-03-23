@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -82,10 +82,11 @@ export default function ProductModal({
           );
           if (cat) {
             const res = await fetch(
-              `/api/admin/subcategories?category=${cat._id}`,
+              `/api/admin/subcategories?categoryId=${cat._id}`,
             );
             const subs = await res.json();
-            setSubCategories(subs);
+            if (Array.isArray(subs)) setSubCategories(subs);
+            else setSubCategories([]);
           }
         } catch (error) {
           console.error("Failed to fetch subcategories", error);

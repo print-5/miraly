@@ -56,11 +56,12 @@ export default function AboutUs() {
           >
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-gray-900/20 border-4 border-white">
               <Image
-                src="https://images.pexels.com/photos/4198017/pexels-photo-4198017.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src="/heritage.jpg"
                 alt="Traditional spice grinding process"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
               />
               
               {/* Floating achievement badge */}

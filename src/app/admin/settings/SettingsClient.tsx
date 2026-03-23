@@ -185,7 +185,11 @@ export default function SettingsClient({
       // If we have a new file, we must use FormData to trigger Cloudinary upload
       if (logoFile || faviconFile) {
         const formData = new FormData();
-        formData.append("data", JSON.stringify(settings));
+        const payloadData = { ...settings };
+        if (logoFile) delete payloadData.logo;
+        if (faviconFile) delete payloadData.favicon;
+        
+        formData.append("data", JSON.stringify(payloadData));
         if (logoFile) formData.append("logo", logoFile);
         if (faviconFile) formData.append("favicon", faviconFile);
 

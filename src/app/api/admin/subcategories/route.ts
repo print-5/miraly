@@ -3,6 +3,7 @@ import connectDB from "@/lib/mongodb";
 import SubCategory from "@/models/SubCategory";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import "@/models/Category"; // Register Category model for populate
 
 export async function GET(req: Request) {
   try {
