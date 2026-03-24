@@ -94,11 +94,13 @@ export async function POST(req: Request) {
           }
           product.stock -= item.qty;
         }
+        product.markModified('variants');
         productsToUpdate.push(product);
       }
 
       // 2. Batch save all products at once
-      await Promise.all(productsToUpdate.map(product => product.save()));
+      const uniqueProducts = Array.from(new Set(productsToUpdate));
+      await Promise.all(uniqueProducts.map(product => product.save()));
     }
 
     // Fix for "admin-fallback" or missing user ID
