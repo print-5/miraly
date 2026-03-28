@@ -1,10 +1,8 @@
-﻿import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar";
 import HeroCarousel from "@/components/HeroCarousel";
-import TrustSection from "@/components/TrustSection";
 import CategorySection from "@/components/CategorySection";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import AboutUs from "@/components/AboutUs";
-import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import CorporateEnquiry from "@/components/CorporateEnquiry";
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
@@ -33,9 +31,6 @@ export default async function Home() {
       {/* Hero Carousel */}
       <HeroCarousel initialSlides={heroSlides} />
 
-      {/* Trust Badges */}
-      <TrustSection />
-
       {/* Premium Categories */}
       <CategorySection initialCategories={categories} />
 
@@ -50,9 +45,6 @@ export default async function Home() {
 
       {/* Corporate Enquiry */}
       <CorporateEnquiry />
-
-      {/* CTA Section */}
-      <CTASection />
 
       <Footer />
     </main>

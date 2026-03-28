@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -52,74 +52,108 @@ export default function CategorySection({
           </div>
         </motion.div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {categories.map((cat, i) => (
-            <motion.div
-              key={cat._id}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <Link
-                href={`/shop?category=${encodeURIComponent(cat.name)}`}
-                className="group relative block h-[420px] rounded-2xl overflow-hidden shadow-lg shadow-gray-900/10 border border-gray-200/50 bg-white hover:shadow-2xl hover:shadow-gray-900/20 transition-all duration-500"
-              >
-                {/* Image Container */}
-                <div className="relative h-[280px] overflow-hidden">
-                  <Image
-                    src={
-                      cat.image ||
-                      "https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800"
+        {/* Categories Scrollable Container with Dots */}
+        <div className="relative w-full max-w-full">
+          <div 
+            id="category-scroll-container"
+            className="flex flex-nowrap lg:flex-wrap items-start justify-start lg:justify-center gap-6 md:gap-12 overflow-x-auto snap-x snap-mandatory pb-8 px-4 sm:px-8"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              const scrollPosition = el.scrollLeft;
+              const itemWidth = el.scrollWidth / categories.length;
+              if (itemWidth > 0) {
+                const newIndex = Math.round(scrollPosition / itemWidth);
+                const activeIndicator = document.getElementById("active-category-index");
+                if (activeIndicator) {
+                  activeIndicator.dataset.index = newIndex.toString();
+                  // Natively update dots
+                  const dots = document.querySelectorAll(".category-dot");
+                  dots.forEach((dot, idx) => {
+                    if (idx === newIndex) {
+                      dot.classList.add("bg-red-600", "w-6");
+                      dot.classList.remove("bg-red-200", "w-2");
+                    } else {
+                      dot.classList.add("bg-red-200", "w-2");
+                      dot.classList.remove("bg-red-600", "w-6");
                     }
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    alt={cat.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
+                  });
+                }
+              }
+            }}
+          >
+            {/* Inject CSS to hide webkit scrollbar but keep component scoped */}
+            <style dangerouslySetInnerHTML={{__html: `
+              #category-scroll-container::-webkit-scrollbar { display: none; }
+            `}} />
 
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500" />
-
-                  {/* Premium badge */}
-                  <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1.5 rounded-full shadow-lg">
-                    <span className="text-xs font-bold uppercase tracking-wider">Premium</span>
+            {categories.map((cat, i) => (
+              <motion.div
+                key={cat._id}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                viewport={{ once: true }}
+                className="snap-center shrink-0 first:ml-[calc(50vw-80px)] lg:first:ml-0 last:mr-[calc(50vw-80px)] lg:last:mr-0"
+              >
+                <Link
+                  href={`/shop?category=${encodeURIComponent(cat.name)}`}
+                  className="group flex flex-col items-center gap-4 hover:-translate-y-2 transition-all duration-300 w-32 md:w-40"
+                >
+                  {/* Round Image Container */}
+                  <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg shadow-red-900/10 border-[3px] border-white group-hover:border-red-100 group-hover:shadow-xl group-hover:shadow-red-900/20 transition-all duration-500">
+                    <Image
+                      src={
+                        cat.image ||
+                        "https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      }
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      alt={cat.name}
+                      fill
+                      sizes="(max-width: 768px) 160px, 200px"
+                    />
+                    
+                    {/* Subtle hover overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                   </div>
 
-                  {/* Shimmer effect */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[1.5s] pointer-events-none" />
-                </div>
-
-                {/* Content */}
-                <div className="p-6 bg-white">
-                  <div className="mb-3">
-                    <span className="text-xs font-bold uppercase tracking-[0.15em] text-red-500 mb-2 block">
-                      {cat.description || "Authentic & Pure"}
-                    </span>
-                    <h3 className="text-xl font-serif font-black text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors duration-300">
+                  {/* Category Text */}
+                  <div className="text-center w-full">
+                    <h3 className="text-lg md:text-xl font-serif font-black text-gray-900 group-hover:text-red-600 transition-colors duration-300 truncate w-full px-2">
                       {cat.name}
                     </h3>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 font-medium">
-                      Explore Collection
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-red-400 transition-colors duration-300 mt-1 block truncate w-full">
+                      {cat.description || "Explore"}
                     </span>
-                    <div className="w-8 h-8 rounded-full bg-red-50 group-hover:bg-red-500 flex items-center justify-center transition-all duration-300">
-                      <ArrowRight
-                        size={16}
-                        className="text-red-500 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-300"
-                      />
-                    </div>
                   </div>
-                </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
 
-                {/* Hover border effect */}
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-red-500/20 rounded-2xl transition-all duration-300" />
-              </Link>
-            </motion.div>
-          ))}
+          <div id="active-category-index" data-index="0" className="hidden" />
+
+          {/* Dots Indicator for Mobile/Tablet */}
+          {categories.length > 1 && (
+            <div className="flex lg:hidden justify-center items-center gap-2 mt-4">
+              {categories.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    const container = document.getElementById("category-scroll-container");
+                    if (container) {
+                      const itemWidth = container.scrollWidth / categories.length;
+                      container.scrollTo({ left: itemWidth * i, behavior: 'smooth' });
+                    }
+                  }}
+                  className={`category-dot h-2 rounded-full transition-all duration-300 ${
+                    i === 0 ? "bg-red-600 w-6" : "bg-red-200 w-2"
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Bottom CTA */}

@@ -1,11 +1,11 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useRef } from "react";
 import { motion, useInView, useSpring } from "framer-motion";
-import { 
-  Award, 
-  Users, 
-  Package, 
+import {
+  Award,
+  Users,
+  Package,
   Leaf,
   Shield,
   Clock,
@@ -138,37 +138,18 @@ export default function AboutPage() {
       {/* Hero Section with Animated Stats */}
       <div
         ref={containerRef}
-        className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50"
+        className="relative min-h-screen w-full overflow-hidden"
       >
-        {/* Background decorations */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -left-1/4 -top-1/4 h-96 w-96 rounded-full bg-gradient-to-br from-red-400/20 to-orange-400/20 blur-3xl" />
-          <div className="absolute -right-1/4 top-1/3 h-96 w-96 rounded-full bg-gradient-to-br from-orange-400/20 to-yellow-400/20 blur-3xl" />
-          <div className="absolute -bottom-1/4 left-1/3 h-96 w-96 rounded-full bg-gradient-to-br from-red-400/20 to-red-400/20 blur-3xl" />
-        </div>
-
-        {/* Grid pattern */}
-        <svg
-          className="absolute inset-0 h-full w-full"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern
-              id="spice-grid"
-              width="60"
-              height="60"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 60 0 L 0 0 0 60"
-                fill="none"
-                stroke="rgba(220,38,38,0.1)"
-                strokeWidth="0.5"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#spice-grid)" />
-        </svg>
+        <Image
+          src="/shop-hero-bg.png"
+          alt="Premium spices background"
+          fill
+          className="object-cover absolute inset-0 z-0 pointer-events-none"
+          priority
+          quality={100}
+        />
+        {/* Overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-white/90 backdrop-blur-[3px] z-0"></div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8 pt-40">
           <div className="flex flex-col items-center justify-center text-center">
@@ -199,7 +180,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="mb-16 max-w-3xl text-lg leading-relaxed text-gray-600 sm:text-xl"
             >
-              From our family's traditional recipes to your kitchen, we bring the finest blend of spices 
+              From our family's traditional recipes to your kitchen, we bring the finest blend of spices
               that tell a story of heritage, quality, and passion for authentic Indian cuisine.
             </motion.p>
 
@@ -230,7 +211,7 @@ export default function AboutPage() {
                 <div className="space-y-4">
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg">
                     <Image
-                      src="https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      src="/115810.jpg"
                       alt="Premium Spices"
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-700"
@@ -239,7 +220,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
                     <Image
-                      src="https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      src="https://images.pexels.com/photos/674483/pexels-photo-674483.jpeg?auto=compress&cs=tinysrgb&w=800"
                       alt="Traditional Methods"
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-700"
@@ -250,7 +231,7 @@ export default function AboutPage() {
                 <div className="space-y-4 pt-8">
                   <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
                     <Image
-                      src="https://images.pexels.com/photos/674483/pexels-photo-674483.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      src="/2148377565.jpg"
                       alt="Spice Collection"
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-700"
@@ -259,7 +240,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg">
                     <Image
-                      src="https://images.pexels.com/photos/4198021/pexels-photo-4198021.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      src="/6799.jpg"
                       alt="Quality Testing"
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-700"
@@ -289,15 +270,15 @@ export default function AboutPage() {
               </h2>
 
               <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                What began as a small family business in 1999 has evolved into one of India's most 
-                trusted names in authentic spices and masalas. Our journey started with a simple 
-                belief: that the best flavors come from pure, natural ingredients processed with 
+                What began as a small family business in 1999 has evolved into one of India's most
+                trusted names in authentic spices and masalas. Our journey started with a simple
+                belief: that the best flavors come from pure, natural ingredients processed with
                 traditional methods.
               </p>
 
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                Today, we continue to honor that tradition while embracing modern quality standards. 
-                Every batch of our masalas is crafted with the same care and attention that our 
+                Today, we continue to honor that tradition while embracing modern quality standards.
+                Every batch of our masalas is crafted with the same care and attention that our
                 founders put into their first products over two decades ago.
               </p>
 
@@ -427,8 +408,8 @@ export default function AboutPage() {
               </h3>
 
               <p className="text-gray-600 leading-relaxed text-lg">
-                Our spices begin their journey in the fertile fields of India, where generations of farmers 
-                have perfected the art of cultivation. We work directly with over 500 farming families across 
+                Our spices begin their journey in the fertile fields of India, where generations of farmers
+                have perfected the art of cultivation. We work directly with over 500 farming families across
                 Kerala, Karnataka, and Tamil Nadu, ensuring fair prices and sustainable farming practices.
               </p>
 
@@ -459,8 +440,8 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-bold text-gray-900 mb-2">Sustainable Farming Commitment</h4>
                     <p className="text-sm text-gray-600 leading-relaxed">
-                      We support regenerative agriculture practices that enrich the soil, conserve water, 
-                      and promote biodiversity. Our farmers use traditional composting methods and natural 
+                      We support regenerative agriculture practices that enrich the soil, conserve water,
+                      and promote biodiversity. Our farmers use traditional composting methods and natural
                       pest control to grow the healthiest spices.
                     </p>
                   </div>
@@ -564,7 +545,7 @@ export default function AboutPage() {
                 Every Purchase Supports Sustainable Farming Communities
               </h3>
               <p className="text-green-50 max-w-xl text-sm md:text-base">
-                When you choose our spices, you're not just getting premium quality – you're supporting 
+                When you choose our spices, you're not just getting premium quality – you're supporting
                 fair trade practices and helping farming families thrive.
               </p>
             </div>
@@ -656,16 +637,15 @@ export default function AboutPage() {
               >
                 <div className="bg-white rounded-3xl p-8 h-full border-2 border-gray-100 hover:border-red-200 transition-all duration-300 hover:shadow-xl hover:shadow-red-500/5 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 via-transparent to-red-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   <div className="relative z-10">
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 ${
-                      value.color === 'green' ? 'bg-red-500' :
-                      value.color === 'red' ? 'bg-red-500' :
-                      value.color === 'blue' ? 'bg-blue-500' :
-                      value.color === 'purple' ? 'bg-purple-500' :
-                      value.color === 'orange' ? 'bg-orange-500' :
-                      'bg-teal-500'
-                    }`}>
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 ${value.color === 'green' ? 'bg-red-500' :
+                        value.color === 'red' ? 'bg-red-500' :
+                          value.color === 'blue' ? 'bg-blue-500' :
+                            value.color === 'purple' ? 'bg-purple-500' :
+                              value.color === 'orange' ? 'bg-orange-500' :
+                                'bg-teal-500'
+                      }`}>
                       <value.icon size={28} className="text-white" />
                     </div>
 
@@ -678,14 +658,13 @@ export default function AboutPage() {
                     </p>
                   </div>
 
-                  <div className={`absolute bottom-0 left-0 right-0 h-1 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${
-                    value.color === 'green' ? 'bg-red-500' :
-                    value.color === 'red' ? 'bg-red-500' :
-                    value.color === 'blue' ? 'bg-blue-500' :
-                    value.color === 'purple' ? 'bg-purple-500' :
-                    value.color === 'orange' ? 'bg-orange-500' :
-                    'bg-teal-500'
-                  }`} />
+                  <div className={`absolute bottom-0 left-0 right-0 h-1 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${value.color === 'green' ? 'bg-red-500' :
+                      value.color === 'red' ? 'bg-red-500' :
+                        value.color === 'blue' ? 'bg-blue-500' :
+                          value.color === 'purple' ? 'bg-purple-500' :
+                            value.color === 'orange' ? 'bg-orange-500' :
+                              'bg-teal-500'
+                    }`} />
                 </div>
               </motion.div>
             ))}

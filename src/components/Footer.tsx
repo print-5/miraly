@@ -8,7 +8,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  ArrowUp,
   Twitter,
   Award,
   Leaf,
@@ -33,10 +32,6 @@ export default function Footer() {
     };
     fetchSettings();
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <footer className="relative">
@@ -304,16 +299,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Floating Scroll To Top */}
-      <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3">
-        <button
-          onClick={scrollToTop}
-          className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-full flex items-center justify-center shadow-xl shadow-red-600/30 hover:shadow-red-600/50 hover:scale-110 transition-all group"
-        >
-          <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />
-        </button>
       </div>
     </footer>
   );

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
@@ -114,9 +114,17 @@ export default function ShopClient({
   return (
     <div className="bg-gray-50">
       {/* Hero Section - Masala Theme */}
-      <section className="relative bg-gradient-to-br from-red-600 via-red-700 to-orange-600 border-b border-red-800/20 py-12 pt-32 md:pt-36">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjA1IiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9zdmc+')] opacity-20"></div>
-        <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <section className="relative border-b border-gray-800/20 pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+        <Image 
+          src="/shop-hero-bg.png" 
+          alt="Premium spices background" 
+          fill 
+          className="object-cover absolute inset-0 z-0 pointer-events-none" 
+          priority 
+          quality={100} 
+        />
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-black/60 via-black/40 to-black/20"></div>
+        <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 w-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-3">

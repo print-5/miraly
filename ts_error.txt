@@ -1,0 +1,11 @@
+﻿src/components/HeroCarousel.tsx(168,11): error TS2322: Type '{ enter: { opacity: number; }; center: { opacity: number; transition: { duration: number; ease: string; }; }; exit: { opacity: number; transition: { duration: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'center' is incompatible with index signature.
+    Type '{ opacity: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any> | undefined; transitionEnd?: ResolvedValues$1 | undefined; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any> | undefined'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[] | undefined'.
